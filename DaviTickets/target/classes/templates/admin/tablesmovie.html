@@ -231,9 +231,9 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
+                                        <tr th:each="movie:${listMovie}" th:object="${movie}">
                                             <td data-th="Poster"></td>
-                                            <td data-th="Tự đề phim">System Architect</td>
+                                            <td data-th="Tự đề phim" th:text="${movie.title_movie}"></td>
                                             <td data-th="Thời lượng">160 Phút</td>
                                             <td data-th="Ngày ra mắt">21-2-2023</td>
                                             <td data-th="Thể loại">Tình cảm, Hài hước</td>
