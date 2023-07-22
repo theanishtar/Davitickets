@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="">
+<meta name="author" content="">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script	src="/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+	<ul th:object="${user}">
+		<input id="email" name="email" th:value="${user.email}" style="display: none">
+	</ul>
+
+	<script type="text/javascript">
+		// http://localhost:8080/rest/getAccount/
+		var email = $("input[name='email']").val();
+		
+		$.ajax({
+			url: '/rest/getAccount/'+email,
+			type: "get",
+			data: "",
+			success: function(data) {
+				//console.log(data);
+				//truyền params
+				window.location.href = "http://localhost:4200/home";
+			},
+			error: function(xhr) {
+				console.log("error")
+			}
+
+		})
+		/* $.ajax({
+			url: 'localhost:8080/rest/getAccount/'+email,
+			method: 'get',
+			success: function (res) {
+				alert("Co ton tai");
+				console.log(res);
+				
+			},
+
+			error: function (res) {
+				alert("Ko ton tai");
+				console.log(res);
+			}
+		});  */
+		
+		/* $.get( 'localhost:8080/rest/getAccount/'+email, function( data ) {
+			  alert( "Data Loaded: " + data );
+			  console.log(data);
+		}); */
+	</script>
+</body>
+
+</html>
