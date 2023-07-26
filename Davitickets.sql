@@ -49,7 +49,7 @@ CREATE TABLE users (
 	full_name NVARCHAR(50) NOT NULL,
 	gender NVARCHAR(5) NULL,
 	user_password NVARCHAR(MAX) NOT NULL,
-	phone VARCHAR(20) NOT NULL,
+	phone VARCHAR(20) NULL,
 	email NVARCHAR(100) NOT NULL,
 	profile_picture NVARCHAR(200) NULL,
 	account_status BIT NULL, --trạng thái hoạt động
