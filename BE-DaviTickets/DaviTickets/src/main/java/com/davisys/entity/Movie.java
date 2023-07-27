@@ -36,7 +36,7 @@ public class Movie implements Serializable{
 	Integer duration;
 	String genre;
 	String poster;
-	Double rating;
+	Float rating;
 	String film_director;
 	String description_movie;
 	

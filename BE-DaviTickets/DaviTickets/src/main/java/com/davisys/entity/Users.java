@@ -1,6 +1,7 @@
 package com.davisys.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,6 +14,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class Users implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer userid;
+    int userid;
 	
 	String full_name;
 	String gender;
@@ -33,9 +36,11 @@ public class Users implements Serializable{
 	String phone;
 	String email;
 	String profile_picture;
-	String account_status;
+	boolean account_status;
 	Boolean processed_by;
-	String user_address;
+	@Temporal(TemporalType.DATE)
+	Date user_birtday =new Date();
+	String gg_id;
 	Boolean user_role;
 	
 	
