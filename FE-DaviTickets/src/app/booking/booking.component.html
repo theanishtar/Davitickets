@@ -1,0 +1,206 @@
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+      <a class="navbar-brand" href="/home">
+          DaviTicket
+      </a>
+
+      <a href="/listMovieBooking" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+              <li class="nav-item">
+                  <a class="nav-link" href="/home">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/history">Lịch sử</a>
+                </li>
+              <li class="nav-item dropdown">
+                  <span class="nav-link">Tài khoản <i class="fa-solid fa-chevron-down"></i></span>
+                <div class="dropdown-content">
+                    <a class="nav-link" href="/profile">Thông tin</a>
+                    <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
+                    <a class="nav-link" href="/home">Đăng xuất</a>
+                </div>
+              </li>
+          </ul>
+
+          <a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a>
+      </div>
+  </div>
+</nav>
+
+
+<section class="section-booking section-padding">
+  <!-- <div class="section-overlay"></div> -->
+
+  <div class="movie-container">
+      <label>Avengers: Endgame</label>
+      <div class="info-movie-selected">
+          <!-- <p>Avengers: Endgame | </p> -->
+          <p>Rạp 6 | </p>
+          <p>Số ghế (160/163) | </p>
+          <p>10/07/2023 09:00 ~ 10/07/2023 12:03</p>
+      </div>
+      <!-- <select id="movie">
+        <option value="10">Avengers: Endgame ($10)</option>
+        <option value="12">Joker ($12)</option>
+        <option value="8">Toy Story 4 ($8)</option>
+        <option value="9">The Lion King ($9)</option>
+      </select> -->
+    </div>
+
+    <ul class="showcase">
+      <li>
+        <div class="seat notselected"></div>
+        <small>Không thể chọn</small>
+      </li>
+
+      <li>
+        <div class="seat selected"></div>
+        <small>Checked</small>
+      </li>
+
+      <li>
+        <div class="seat occupied"></div>
+        <small>Đã chọn</small>
+      </li>
+    </ul>
+
+    <div class="container-booking">
+      <div class="screen"></div>  
+      <div class="row">
+        <div class="seat">A1</div>
+        <div class="seat notselected">A2</div>
+        <div class="seat">A3</div>
+        <div class="seat">A4</div>
+        <div class="seat">A5</div>
+        <div class="seat">A6</div>
+        <div class="seat">A7</div>
+        <div class="seat">A8</div>
+        <div class="seat">A9</div>
+        <div class="seat">A10</div>
+        <div class="seat">A11</div>
+      </div>
+      <div class="row">
+        <div class="seat">B1</div>
+        <div class="seat">B2</div>
+        <div class="seat">B3</div>
+        <div class="seat">B4</div>
+        <div class="seat occupied">B5</div>
+        <div class="seat occupied">B6</div>
+        <div class="seat">B7</div>
+        <div class="seat">B8</div>
+        <div class="seat">B9</div>
+        <div class="seat">B10</div>
+        <div class="seat">B11</div>
+      </div>
+
+      <div class="row">
+        <div class="seat">C1</div>
+        <div class="seat">C2</div>
+        <div class="seat">C3</div>
+        <div class="seat">C4</div>
+        <div class="seat">C5</div>
+        <div class="seat">C6</div>
+        <div class="seat">C7</div>
+        <div class="seat occupied">C8</div>
+        <div class="seat occupied">C9</div>
+        <div class="seat">C10</div>
+        <div class="seat">C11</div>
+      </div>
+
+      <div class="row">
+        <div class="seat">D1</div>
+        <div class="seat">D2</div>
+        <div class="seat">D3</div>
+        <div class="seat">D4</div>
+        <div class="seat">D5</div>
+        <div class="seat">D6</div>
+        <div class="seat">D7</div>
+        <div class="seat">D8</div>
+        <div class="seat">D9</div>
+        <div class="seat">D10</div>
+        <div class="seat">D11</div>
+      </div>
+
+      <div class="row">
+        <div class="seat">E1</div>
+        <div class="seat">E2</div>
+        <div class="seat">E3</div>
+        <div class="seat">E4</div>
+        <div class="seat occupied">E5</div>
+        <div class="seat occupied">E6</div>
+        <div class="seat">E7</div>
+        <div class="seat">E8</div>
+        <div class="seat">E9</div>
+        <div class="seat">E10</div>
+        <div class="seat">E11</div>
+      </div>
+
+      <div class="row">
+        <div class="seat">F1</div>
+        <div class="seat">F2</div>
+        <div class="seat">F3</div>
+        <div class="seat">F4</div>
+        <div class="seat">F5</div>
+        <div class="seat occupied">F6</div>
+        <div class="seat occupied">F7</div>
+        <div class="seat occupied">F8</div>
+        <div class="seat">F9</div>
+        <div class="seat">F10</div>
+        <div class="seat">F11</div>
+      </div>
+      
+      <div class="row">
+          <div class="seat">G1</div>
+          <div class="seat">G2</div>
+          <div class="seat">G3</div>
+          <div class="seat">G4</div>
+          <div class="seat">G5</div>
+          <div class="seat occupied">G6</div>
+          <div class="seat occupied">G7</div>
+          <div class="seat occupied">G8</div>
+          <div class="seat">G9</div>
+          <div class="seat">G10</div>
+          <div class="seat">G11</div>
+        </div>
+    </div>
+
+    <div class="footer-booking">
+      <div class="btn-bookmark">
+        <a href="/listMovieBooking">
+            <button class="bookmarkBtnPrev">
+                <p class="text">Quay lại</p>
+                <span class="IconContainer"> 
+                    <i class="fa-solid fa-arrow-left"></i>
+                </span>
+              </button>
+        </a>
+      </div>
+      <div>
+        <p class="text">
+          Ghế: <span id="seat">G1, G2, G1, G2, G1, G2</span>
+        </p>
+        <p class="text">
+          Tổng: <span id="total">50000đ</span>
+        </p>
+      </div>
+
+      <div class="btn-bookmark">
+        <a href="/pay">
+            <button class="bookmarkBtnNext">
+                <span class="IconContainer"> 
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+                <p class="text">Tiếp tục</p>
+              </button>
+        </a>
+      </div>
+    </div>
+</section>
