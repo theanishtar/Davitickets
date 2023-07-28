@@ -1,0 +1,532 @@
+:root {
+    --body-font-family: "cursive", sans-serif;
+    --font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+    background: #000;
+    font-family: "cursive", sans-serif;
+}
+
+.background{
+    background: url("../images/bg-login.jpg") no-repeat;
+    background-position: center;
+    background-size:cover ;
+    height: 100vh;
+    width: 100%;
+    filter: blur(10px);
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px 13%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+
+}
+.navbar a{
+    position: relative;
+    /* font-size: 16px; */
+    color: #fff;
+    margin-right: 30px;
+    text-decoration: none;
+}
+/* .navbar a::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    bottom: -5px;
+    border-radius: 5px;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: .5s ease;
+} */
+.navbar a:hover:after{
+    transform: translateY(0);
+    opacity: 1;
+}
+.search-bar{
+    width: 250px;
+    height: 45px;
+    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+}
+.search-bar input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    padding-left: 10px;
+}
+.search-bar button{
+    width: 40px;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+.search-bar input::placeholder{
+    color: #fff;
+}
+.search-bar button i{
+    font-size: 22px;
+}
+.container-form{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 75%;
+    height: 550px;
+    margin-top: 60px;
+    background: url("../images/bg-login-form.jpg") no-repeat;
+    background-position: center;
+    background-size:cover ;
+    border-radius: 20px;
+    overflow: hidden;
+    
+    
+}
+.item{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 58%;
+    height: 100%;
+    color: #fff;
+    background: transparent;
+    padding: 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    
+
+
+}
+.item .logo{
+    color: #fff;
+    font-size: 30px;
+
+}
+.text-item h2{
+    font-size: 40px;
+    line-height: 1;
+    color: white;
+}
+.text-item p{
+    font-size: 16px;
+    margin: 20px 0;
+}
+.social-icon a i{
+    color: #fff;
+    font-size: 24px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: .5s ease;
+}
+.social-icon a:hover i{
+    transform: scale(1.2);
+}
+.container-form .login-section{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100% - 58%);
+    height: 100%;
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+.login-section .form-box{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    
+}
+.login-section .form-box.register{
+    transform: translateX(430px);
+    transition: transform .6s ease;
+    transition-delay: 0s;
+}
+.login-section.active .form-box.register{
+    transform: translateX(0px);
+    transition-delay: .7s;
+}
+
+.login-section .form-box.login{
+    transform: translateX(0px);
+    transition: transform .6s ease;
+    transition-delay: 0.7s;
+}
+.login-section.active .form-box.login{
+    transform: translateX(430px);
+    transition-delay: 0s;
+}
+
+
+
+.login-section .form-box h2{
+    text-align: center;
+    font-size: 25px;
+    color: white;
+}
+
+.form-box .input-box{
+    width: 340px;
+    height: 50px;
+    border-bottom: 2px solid#fff;
+    margin: 30px 0;
+    position: relative;
+}
+.input-box input:-webkit-autofill,
+.input-box input:-webkit-autofill:hover, 
+.input-box input:-webkit-autofill:focus, 
+.input-box input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    background-color: transparent;
+}
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding-right: 28px;
+    color: white;
+
+}
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: 600px;
+    pointer-events: none;
+    transition: .5s ease;
+
+}
+.input-box .form-item-icon-eye{
+    position: absolute;
+    top: 13px;
+    right: 0;
+    font-size: 19px;
+    cursor: pointer;
+}
+.input-box input:focus~ label,
+.input-box input:valid~ label{
+    top: -5px;
+}
+.remember-password{
+    font-size: 14px;
+    font-weight: 500;
+    margin: -15px 0 15px ;
+    display: flex;
+    justify-content: space-between;
+}
+.remember-password label input{
+    accent-color: #fff;
+    margin-right: 3px;
+
+}
+.remember-password a{
+    color: #fff;
+    text-decoration: none;
+}
+.remember-password a:hover{
+    text-decoration: underline;
+}
+.btn-login,
+.btn-register,
+.btn-wGoogle{
+    background: #fff;
+    width: 100%;
+    height: 45px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #f72d7a;
+    font-size: 16px;
+    color: #fff;
+    box-shadow: rgba(0,0,0,0.4);
+
+}
+.btn-wGoogle{
+    max-width: 100%;
+    position: relative;
+}
+button.btn-wGoogle {
+    background: white;
+    color: black;
+}
+i.fa-brands.fa-google {
+    color: red;
+}
+.create-account{
+    font-size: 14.5px;
+    text-align: center;
+    margin: 25px;
+}
+.create-account p a{
+    color: #fff;
+    font-weight: 600px;
+    text-decoration: none;
+}
+.create-account p a:hover{
+    text-decoration: underline;
+}
+
+.create-account p {
+    font-size: 14px;
+}
+
+
+@media screen and (max-width: 1120px) {
+    .container-form{
+        width: 45%;
+      }
+      .container-form .login-section {
+        width: -webkit-fill-available;
+      }
+}
+@media screen and (max-width: 980px) {
+    .container-form{
+        width: 50%;
+      }
+}
+@media screen and (max-width: 800px) {
+    .container-form{
+        width: 90%;
+      }
+}
+
+/*  */
+
+.navbar-nav .nav-link,
+span.nav-link{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .site-footer-link {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .text-white, .create-account {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;  
+  }
+
+  i.fa-solid.fa-chevron-down {
+    font-size: 11px;
+}
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #000000;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 0px;
+    z-index: 1;
+    border-radius: 10px;
+    text-align: center;
+  }
+  a.nav-link.item{
+    padding: 0px 20px!important;
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  @media screen and (max-width: 991px){
+  .dropdown:hover .dropdown-content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/*  */
+
+label, a{
+    font-size: 16px;
+}
+a.login-link,
+a.register-link,
+span.nav-link {
+    cursor: pointer;
+}
+a.nav-link:hover,
+a.nav-link.dropdown:hover{
+    color: #ee5007;
+}
+a.nav-link.dropdown {
+    margin: 0 5px;
+}
+
+
+/* ============verification================ */
+
+.verification-form{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+/* verification Card */
+.verification-card-container {
+    border: 1px solid rgba(132, 132, 132, 0.5);
+    border-radius: 10px;
+    background: rgba(240, 240, 240, 0.5);
+
+}
+
+.verification-card {
+    padding: 2rem 4rem 0rem 4rem;
+    position: relative;
+}
+
+/* verification Card Logo */
+.verification-card-logo {
+    margin-bottom: 1rem;
+}
+
+.verification-card-logo img {
+    width: 60px;
+}
+
+/* ---------- */
+
+/* verification Card Standard */
+.verification-card-logo,
+.verification-card-header,
+.verification-card-footer {
+    text-align: center;
+}
+
+.verification-card a,
+.verification-card-footer a {
+    text-decoration: none;
+    color: #35339a;
+}
+
+.verification-card a:hover {
+    transform: scale(1.1);
+}
+
+/* verification Card Header */
+.verification-card-header {
+    margin-bottom: 2rem;
+}
+
+.verification-card-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.verification-card-header h1+div {
+    font-size: calc(1rem * .8);
+    opacity: .8;
+}
+
+/* verification Card Form */
+.verification-card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.verification-card-form .form-item {
+    position: relative;
+}
+
+.verification-card-form .form-item .form-item-icon {
+    position: absolute;
+    top: .50rem;
+    left: 1.4rem;
+    font-size: 1.3rem;
+    opacity: .4;
+}
+
+
+.verification-card-form .form-item-other {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: calc(1rem * .8);
+    margin-bottom: .5rem;
+}
+
+/* verification Card Footer */
+.verification-card-footer {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    /* font-size: calc(1rem * .8); */
+    font-size: 16px;
+}
+
+/* verificationCard Form Elements */
+.verification-card input[type="text"]{
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, .3);
+    padding: 1rem 1.5rem;
+    padding-left: calc(1rem * 3.5);
+    border-radius: 100px;
+    width: 100%;
+    transition: background .5s;
+}
+
+.verification-card input:focus {
+    background: white;
+}
+
+.verification-card button {
+    background: black;
+    color: white;
+    padding: 1rem;
+    border-radius: 100px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background .5s;
+}
+
+.verification-card button:hover {
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+}
+
+/* ==================== */
+/* .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px !important;
+} */
+
