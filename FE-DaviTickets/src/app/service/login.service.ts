@@ -3,10 +3,11 @@ import { Injectable, NgZone } from '@angular/core';
 //Xử lí bất đồng bộ
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-
+import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
 import '../../assets/toast/main.js';
@@ -17,10 +18,12 @@ declare var toast: any;
 export class LoginService {
   private userURL = 'http://localhost:8080/rest/login';
   private userURLGG = 'http://localhost:8080/rest/loginWithGG';
-  
+  private userCheckCodeMail="http://localhost:8080/rest/checkCodeMail";
+  private userLoginWithGG = "http://localhost:8080/login/oauth/authenticated";
+  private userLoginAuth = "http://localhost:8080/login/oauth/authenticated";
+  private userLogin = "http://localhost:8080/login";
 
   loginUser(data: any) {
-    
     // return this.http.post(this.userURL, data);
     return this.http.post<any>(this.userURL,data).pipe(
           // tap(() => console.log("Lấy dữ liệu thành công")),
@@ -28,6 +31,36 @@ export class LoginService {
           catchError(error => of([alert(error)]))
         )
   }
+
+  log(data: any) {
+    // return this.http.post(this.userURL, data);
+    return this.http.post<any>(this.userLogin,data).pipe(
+          // tap(() => console.log("Lấy dữ liệu thành công")),
+          tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
+          catchError(error => of([alert(error)]))
+        )
+  }
+
+  loginWithGoogle(data: any) {
+    // return this.http.post(this.userURL, data);
+    return this.http.post<any>(this.userLoginWithGG,data).pipe(
+          tap(() => console.log("Thành công")),
+          // tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
+          catchError(error => of([]))
+        )
+  }
+
+  loginAuth(data: any) {
+    //alert("dataparsms:"+data);
+    var strData = {"data":data };
+    // return this.http.post(this.userURL, data);
+    return this.http.post<any>(this.userLoginAuth,strData).pipe(
+          tap((res) => console.log("Thành công"+res)),
+          // tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
+          catchError(error => of([]))
+        )
+  }
+
   loginWithGG(data: any) {
     // return this.http.post(this.userURL, data);
     return this.http.post<any>(this.userURLGG,data).pipe(
@@ -38,6 +71,15 @@ export class LoginService {
   }
 
 
+
+  checkCodeMail(data: any) {
+    // return this.http.post(this.userURL, data);
+    return this.http.post<any>(this.userCheckCodeMail,data).pipe(
+          // tap(() => console.log("Lấy dữ liệu thành công")),
+          tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
+          catchError(error => of([]))
+        )
+  }
 
   // getAllUsers() : Observable<any>{
   //   return this.http.get<any>(this.userURL).pipe(
@@ -50,7 +92,9 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private httpClient: HttpClient
   ) {}
 
   isLogin(): boolean {

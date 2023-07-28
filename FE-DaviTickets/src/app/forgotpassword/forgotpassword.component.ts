@@ -55,12 +55,6 @@ export class ForgotpasswordComponent {
 
   checkMailForgotPass() {
     if (this.emailForm.valid) {
-      new toast({
-        title: 'Vui lòng đợi trong giây lát!',
-        message: 'Hệ thống đang kiểm tra và gửi mã!',
-        type: 'info',
-        duration: 10000,
-      });
       this.forgotpasswordService
         .sendMail(this.emailForm.value)
         .subscribe((res) => {

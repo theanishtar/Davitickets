@@ -47,6 +47,14 @@
     font-size: 13px;
     padding: 5px;
 }
+.seat.your {
+  /* border: 1px solid #07A846; */
+  background: #ee5007;
+}
+.seat.vip {
+  /* border: 1px solid #07A846; */
+  background: #07A846;
+}
 .seat.notselected {
   background-color: red;
 }
@@ -56,6 +64,7 @@
 
 .seat.occupied {
   background-color: #fff;
+  color: black;
 }
 
 .seat:nth-of-type(2) {
@@ -66,7 +75,8 @@
   margin-left: 18px;
 }
 .seat.notselected:hover,
-.seat.occupied:hover{
+.seat.occupied:hover,
+.seat.your:hover{
   cursor: no-drop;
 }
 .seat:hover{

@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'forgotpass', component: ForgotpasswordComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'history', component: HistoryComponent},
+  {path: 'listMovieBooking/:date', component: ListMovieBookingComponent},
 ];
 
 @NgModule({

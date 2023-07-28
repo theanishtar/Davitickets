@@ -191,17 +191,20 @@
   }
   
   ul.menu li:hover,
-  ul.menu li.selected {
+  ul.menu li.active {
     border-left: #795548 solid 3px;
     color: #db8b09;
     font-weight: 500;
     transition: all 0.1s ease;
   }
   
-  /* ul.menu li:nth-child(7) { 
-      box-shadow: 0 2px 2px rgba(0,0,0,.15);
-    } */
-  
+  /* ul.menu li:first-child { 
+    border-left: #795548 solid 3px;
+    color: #db8b09;
+    font-weight: 500;
+    transition: all 0.1s ease;
+  } */
+
   .side div.bg {
     position: absolute;
     height: 100%;
@@ -304,6 +307,18 @@
   }
   i.fa-solid.fa-chevron-down {
     font-size: 11px;
+  }
+
+  ul.menu{
+    height: 550px;
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+  }
+  
+  ul.menu::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
   }
   
   

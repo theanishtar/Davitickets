@@ -18,7 +18,8 @@ export class BookingComponent {
       if (
         target.classList.contains("seat") &&
         !target.classList.contains("occupied") &&
-        !target.classList.contains("notselected")
+        !target.classList.contains("notselected")&&
+        !target.classList.contains("your")
       ) {
         console.log("abc")
         target.classList.toggle("selected");

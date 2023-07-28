@@ -22,7 +22,10 @@ import {
   SocialLoginModule,
 } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
-import {GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import {MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -45,12 +48,15 @@ import {GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     HttpClientModule,
     ReactiveFormsModule,
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
+    MatTableModule,
+    MatButtonModule,
+    MatPaginatorModule
   ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
-      
+
       useValue: {
         autoLogin: false,
         providers: [
@@ -69,4 +75,4 @@ import {GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
