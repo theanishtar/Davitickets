@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/admin/index.html :: dynamic(~{::body})}">
+<head>
+<meta charset="UTF-8">
+<title>Davitickets</title>
+<link th:href="@{/css/admin.css}" rel="stylesheet">
+<link th:href="@{/vendor/fontawesome-free/css/all.min.css}"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+</head>
+<body id="page-top">
+
+	<!-- Begin Page Content -->
+	<!-- Page Heading -->
+	<div class="container-fluid">
+		<h1 class="h3 mb-4 text-light">Quản lý người dùng</h1>
+		<form th:object="${formuser}" method="post" action="#"
+			enctype="multipart/form-data">
+			<div class="shadow-lg card border-0 border-left-danger">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="">
+							<div class="mb-4">
+								<div class="card-body text-center">
+									<label> <img src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/351471491_936261364267899_2142562110690258481_n.jpg?stp=cp6_dst-jpg&_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=xIm9N3bkhFAAX80jgiA&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfD9JdHLWHjuXCi3mc3nhTs41maceWPXuj9zZmzQyOQa2g&oe=64C68A94"
+										alt="avatar" class="rounded-circle img-fluid"
+										style="width: 100%;"> <input name="file" type="file"
+										style="display: none;">
+									</label>
+									<h5 class="my-3" th:text="*{user_role} ? 'Admin' : 'User'"></h5>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class=" mb-4">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Họ và tên</p>
+									</div>
+									<div class="col-sm-9">
+										<input class="text-muted mb-0" th:field="*{full_name}"
+											th:name="fullname" required> <input type="text"
+											id="fupdate" class="text-muted mb-0"
+											th:value="${alertUpdate}" style="display: none"> <input
+											type="text" id="fdisable" class="text-muted mb-0"
+											th:value="${alertDisable}" style="display: none">
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Gender</p>
+									</div>
+									<div class="col-sm-9">
+										<input class="text-muted mb-0" th:field="*{gender}"
+											th:name="gender" required>
+
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Email</p>
+									</div>
+									<div class="col-sm-9">
+										<input class="text-muted mb-0" type="email"
+											th:field="*{email}" name="email" required readonly>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Số điện thoại</p>
+									</div>
+									<div class="col-sm-9">
+										<input type="tel" class="text-muted mb-0" th:field="*{phone}"
+											th:name="phone" pattern="^(0\d{9})$" required>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Ngày sinh</p>
+									</div>
+									<div class="col-sm-9">
+										<input class="text-muted mb-0" type="date"
+											th:field="*{user_birtday}" th:name="birtday" required>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Ngày gia nhập</p>
+									</div>
+									<div class="col-sm-9">
+										<input class="text-muted mb-0" type="date"
+											th:field="*{user_dayjoin}" th:name="dayjoin" required>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
+										<p class="mb-0">Xác thực</p>
+									</div>
+									<div class="col-sm-9">
+										<input type="text" class="text-muted mb-0"
+											th:value="*{processed_by} ? 'Đã xác thực' : 'Chưa xác thực'"
+											readonly>
+									</div>
+								</div>
+								<hr>
+								<div class="btn-updateprofile">
+									<button th:formaction="@{|/updateUsers/${userid}|}"
+										type="submit" class="btn btn-primary">
+										<i class="fas fa-fw fa-edit"></i> Sửa
+									</button>
+									<button class="btn btn-light">
+										<i class="fas fa-fw fa-undo"></i> Làm mới
+									</button>
+									<button th:formaction="@{|/disableUsers/${userid}|}"
+										type="submit" class="btn btn-danger" th:if="${formuser.account_status}">
+										<i class="fas fa-fw fa-user-slash"></i> Vô hiệu hóa
+									</button>
+									<button th:formaction="@{|/disableUsers/${userid}|}"
+										type="submit" class="btn btn-success" th:if="${!formuser.account_status}">
+										<i class="fas fa-fw fa-user-check"></i> Kích hoạt
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- End of Main Content -->
+
+
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="/vendor/jquery/jquery.min.js"></script>
+	<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="/js/sb-admin-2.min.js"></script>
+	<script type="text/javascript">
+		var data = document.getElementById("fupdate");
+		var dataDis = document.getElementById("fdisable");
+		if (data.value == "true") {
+			toast({
+				title : "Thành công!",
+				message : "Bạn đã cập nhật thành công",
+				type : "success",
+				duration : 5000
+			});
+		}
+		if (data.value == "false") {
+			toast({
+				title : "Thất bại!",
+				message : "Bạn đã cập nhật thất bại",
+				type : "error",
+				duration : 5000
+			});
+		}
+		if (dataDis.value == "true") {
+			toast({
+				title : "Thành công!",
+				message : "Bạn đã thêm mới thành công",
+				type : "success",
+				duration : 5000
+			});
+		}
+		if (dataDis.value == "false") {
+			toast({
+				title : "Thất bại!",
+				message : "Bạn đã thêm mới thất bại",
+				type : "error",
+				duration : 5000
+			});
+		}
+	</script>
+
+</body>
+</html>
