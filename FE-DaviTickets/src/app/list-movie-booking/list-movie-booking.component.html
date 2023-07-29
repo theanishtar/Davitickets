@@ -19,12 +19,12 @@
               <li class="nav-item">
                   <a class="nav-link" href="/history">Lịch sử</a>
                 </li>
-              <li class="nav-item dropdown">
-                  <span class="nav-link">Tài khoản <i class="fa-solid fa-chevron-down"></i></span>
+                <li class="nav-item dropdown">
+                  <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
                 <div class="dropdown-content">
                     <a class="nav-link" href="/profile">Thông tin</a>
                     <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
-                    <a class="nav-link" href="/home">Đăng xuất</a>
+                    <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
                 </div>
               </li>
           </ul>
@@ -37,31 +37,7 @@
       <section class="section-booking section-padding">
         <div class="wrapper">
           <div class="side" id="ftco-nav">
-            <!-- <div>
-              <h3>Cinema</h3>
-            </div> -->
-            <ul class="menu" id="parentElement">
-              <!-- <li title="" class="selected">
-                <i class="zmdi zmdi-label-alt"></i> Thứ 2 <br> 10/11/2023
-              </li>
-              <li title="Ladies Night">
-                <i class="zmdi zmdi-female"></i> Thứ 3 <br> 11/11/2023
-              </li>
-              <li title="Family Friday">
-                <i class="zmdi zmdi-male-female"></i> Thứ 4 <br> 12/11/2023
-              </li>
-              <li title="">
-                <i class="zmdi zmdi-collection-item-1"></i> Thứ 5 <br> 13/11/2023
-              </li>
-              <li title="">
-                <i class="zmdi zmdi-collection-item-2"></i> Thứ 6 <br> 14/11/2023
-              </li>
-              <li title="Monday for All">
-                <i class="zmdi zmdi-accounts-alt"></i> Thứ 7 <br> 15/11/2023
-              </li>
-              <li title="Kids Tuesday">
-                <i class="zmdi zmdi-face"></i> Chủ nhật <br> 16/11/2023
-              </li> -->
+            <ul class="menu">
               <li *ngFor="let item of dateList" (click)="getDataByDate(item.date)" class="nav-item">
                 <i class="zmdi zmdi-label-alt"></i> {{item.dayOfWeek}} <br> {{  item.date | date: 'dd/MM/yyyy' }}
               </li>
@@ -76,35 +52,29 @@
                         <div class="card-movie card-sm mb-3">
                           <div class="card-body">
                             <div class="row">
-                              <div class="col-3 col-sm-2">
-                                <a
-                                  href="/booking"
-                                >
+                              <div class="col-md-2">
+                                <!-- <div
+                                > -->
                                   <img
-                                    src="{{item.poster}}"
-                                    alt="Nhiệm Vụ Bất Khả Thi 7: Nghiệp Báo Phần 1"
+                                  src="{{item.poster}}"
+                                    alt="Poster"
                                     class="rounded img-fluid"
                                   />
-                                </a>
+                                <!-- </div> -->
                               </div>
-                              <div class="col ml-n2">
+                              <div class="col-md-9">
                                 <h4 class="card-title mb-1 name">
-                                  <a class="film-title"
-                                  href="/booking"
+                                  <div class="film-title"
                                   >
                                   {{item.tile_movie}}
-                                  </a>
+                                  </div>
                                 </h4>
     
                                 <p class="card-text small text-muted mb-0">
                                   Thời lượng · {{item.duration}}' ·
                                   <a
                                     href=""
-                                    data-toggle="modal"
-                                    data-target="#videoModal"
-                                    data-video-id="18042"
-                                    data-video-url="S6hHHUExknQ"
-                                    data-remote="false"
+                                    class="trailer"
                                     >Trailer</a
                                   >
                                 </p>
@@ -118,13 +88,9 @@
                                     </label>
                                     <div class="show-time" *ngFor="let time of item.start_time">
                                         <a
-                                      href="/dat-ve/cgv/126655/8712230"
+                                        class="show-time-item"
+                                      href="/booking"
                                       rel="nofollow"
-                                      data-cineplex="cgv"
-                                      data-cinema="cgv-vincom-xuan-khanh"
-                                      data-id="291582081"
-                                      class="btn btn-sm btn-showtime disabled btn-light is-redirecting"
-                                      data-reference="126655_8712230"
                                     >
                                       <span class="time">{{time[0]}}</span>
                                     </a>

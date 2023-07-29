@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild  } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 // import { ListMovieService } from '../service/list-movie.service';
-
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { LoginService } from '../service/login.service';
 import '../../assets/toast/main.js';
 declare var toast: any;
 @Component({
@@ -10,6 +12,7 @@ declare var toast: any;
   styleUrls: ['./list-movie-booking.component.css']
 })
 export class ListMovieBookingComponent {
+  userDisplayName = '';
   items: any[] = [];
   selectedDate: string = ''; // Ngày được chọn
   apiMovieUrl = 'http://localhost:8080/movie/loadMovie';
@@ -18,8 +21,14 @@ export class ListMovieBookingComponent {
   currentYear: number;
   dateList: { date: Date; dayOfWeek: string }[] = [];
 
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private loginService: LoginService,
+    private router: Router,
+  ) { 
+    this.userDisplayName = this.cookieService.get('full_name');  
+  }
 
   ngOnInit() {
     // Gọi phương thức để lấy dữ liệu với ngày hiện tại
@@ -30,25 +39,21 @@ export class ListMovieBookingComponent {
     this.currentYear = today.getFullYear();
     this.generateDateList();
 
-    // 
+    // Add acitve cho menu ngày khi click vào
     const ftco_nav = document.getElementById('ftco-nav')!;
     //'activeCard' to keep track of the currently clicked card
     let activeCard: any = null;
     function handleClick(event: any) {
       const clickedCard = event.target.closest('.nav-item');
-      const parentElement = document.getElementById('parentElement');
-      const firstChild = parentElement.firstElementChild;
-      firstChild.classList.add('active');
+      
       if (clickedCard) {
         if (activeCard) {
           activeCard.removeEventListener('click', handleClick);
           activeCard.classList.remove('active');
-          // firstChild.classList.remove('active');
         }
 
         clickedCard.addEventListener('click', handleClick);
         clickedCard.classList.add('active');
-        // firstChild.classList.remove('active');
 
         activeCard = clickedCard;
       }
@@ -110,6 +115,14 @@ export class ListMovieBookingComponent {
     const day = date.getDate();
 
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+  }
+
+  isLogin(){
+    return this.loginService.isLogin();
+  }
+
+  logout(){
+    return this.loginService.logout();
   }
 }
 

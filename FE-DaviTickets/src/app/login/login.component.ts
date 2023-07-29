@@ -64,31 +64,6 @@ export class LoginComponent {
   userGG: any;
   loggedIn: any;
   ngOnInit() {
-    // this.authService.authState.subscribe((userGG) => {
-    //   function delay(ms: number) {
-    //     return new Promise(function (resolve) {
-    //       setTimeout(resolve, ms);
-    //     });
-    //   }
-    //   this.loginService.loginWithGG(userGG).subscribe((res) => {
-    //     this.cookieService.set('full_name', res.user.full_name);
-    //     this.cookieService.set('isUserLoggedIn', JSON.stringify(res.sesionId));
-
-    //     delay(500).then((res) => {
-    //       this.loginForm.reset();
-    //       this.router.navigate(['home']);
-    //       new toast({
-    //         title: 'Thành công!',
-    //         message: 'Đăng nhập thành công',
-    //         type: 'success',
-    //         duration: 1500,
-    //       });
-    //       delay(1500).then((_) => {
-    //         location.reload();
-    //       });
-    //     });
-    //   });
-    // });
 
 
     this.route.queryParams.subscribe(params => {

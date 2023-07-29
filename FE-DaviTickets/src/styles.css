@@ -1178,6 +1178,20 @@ button.swal2-cancel.swal2-styled.swal2-default-outline {
   margin-top: 0;
 }
 
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #000000;
+  /* min-width: 180px; */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 0px;
+  z-index: 1;
+  text-align: center;
+  border-radius: 15px;
+  width: 190px;
+  margin: 0 1.5rem;
+}
+
 
 
   

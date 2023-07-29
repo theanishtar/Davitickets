@@ -24,12 +24,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/history">Lịch sử</a>
                   </li>
-                <li class="nav-item dropdown">
-                    <span class="nav-link">Tài khoản <i class="fa-solid fa-chevron-down"></i></span>
+                  <li class="nav-item dropdown">
+                    <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
                   <div class="dropdown-content">
                       <a class="nav-link" href="/profile">Thông tin</a>
                       <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
-                      <a class="nav-link" href="/home">Đăng xuất</a>
+                      <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
                   </div>
                 </li>
             </ul>

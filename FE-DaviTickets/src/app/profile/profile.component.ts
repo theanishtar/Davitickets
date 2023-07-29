@@ -30,7 +30,7 @@ declare var toast: any;
 })
 export class ProfileComponent {
   public profileForm!: FormGroup;
-
+  userDisplayName = '';
 
   constructor(
     private formbuilder: FormBuilder,
@@ -41,7 +41,7 @@ export class ProfileComponent {
     private cookieService: CookieService,
     private validatorService: ValidatorService,
   ){
-
+    this.userDisplayName = this.cookieService.get('full_name'); 
   }
 
   createFormProfile() {
@@ -61,5 +61,13 @@ export class ProfileComponent {
 
   updateProfile(){
     
+  }
+
+  isLogin(){
+    return this.loginService.isLogin();
+  }
+
+  logout(){
+    return this.loginService.logout();
   }
 }
