@@ -2,7 +2,7 @@
 
 Our project is a DaviTickets movie booking website!
 
-The project is guided by Mr.[Quach Huu Nghia](https://github.com/nghiaqh/) and uses technologies such as: Java Spring Boot, Socket.io, Thymeleaf template engine, bootstrap 5, ...
+The project is guided by Mr.[Quach Huu Nghia](https://github.com/nghiaquach/) and uses technologies such as: Java Spring Boot, Socket.io, Thymeleaf template engine, bootstrap 5, ...
 
 ## Contributor
 | Full Name | Role | Highlight Project |
