@@ -11,7 +11,7 @@ The project is guided by Mr.[Quach Huu Nghia](https://github.com/nghiaqh/) and u
 |[Doan Hiep Sy]() | BackEnd Developer | [Biker Shop Manager](https://github.com/DoanSy16/biker-shop-manager)  
 |[Nguyen Khanh Dan]() | FrontEnd Developer, BA | [FreshFood](https://github.com/NguyenKhanhDan/FreshFood)  
 |[Phung Quoc Vinh]() | BackEnd Developer,  | [Dodge Game](https://github.com/Dinhisme/DodgeGame)  
-|[Le Bich Vi]() | FrontEnd Developer | [Quanlikitucxa](https://github.com/TheBank0911/Quanlikitucxa)
+|[Le Bich Vi]() | Fullstack Developer | [Quanlikitucxa](https://github.com/TheBank0911/Quanlikitucxa)
 |[Chau Hoai Phuc]() | BackEnd Developer | [Noneyet]()
 
 
