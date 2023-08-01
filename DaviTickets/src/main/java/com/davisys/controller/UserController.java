@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.davisys.dao.UserDAO;
+import com.davisys.entity.Movie;
+import com.davisys.entity.Showtime;
 import com.davisys.entity.Users;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import lombok.Data;
 
+@Data
 @Controller
 public class UserController {
 	@Autowired
@@ -27,9 +33,35 @@ public class UserController {
 	@Autowired
 	HttpServletRequest request;
 	
+	
+	String editUser = "add";
 	String update = "";
 	String disable = "";
+	
+	public static String renameFile(String fileName, String id) {
+		return FilenameUtils.getBaseName(id) + ".png";
+	}
+	
+	@GetMapping("/user")
+	public String user(Model m) {
+		editUser="add";
+		m.addAttribute("editUser", editUser);
+		m.addAttribute("activem", "active");
+		Users user = new Users();
+		if(disable == "true") {
+			m.addAttribute("alertDisable", "true");
+		}
+		if(disable == "false") {
+			m.addAttribute("alertDisable", "false");
+		}
+		disable = "";
+		
+		//user.setPoster("/img/user.png");
+		m.addAttribute("formuser", user);
+		return "admin/formuser";
+	}
 
+ 
 	@GetMapping("/tablesusers")
 	public String tablesusers(Model m) {
 		testLoadData(m);
@@ -71,6 +103,7 @@ public class UserController {
 			user.setFull_name(full_name);
 			user.setGender(gender);
 			user.setPhone(phone);
+			
 			
 			DateFormat dateFormat = new SimpleDateFormat(pattern);
 			try {

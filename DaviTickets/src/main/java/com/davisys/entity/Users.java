@@ -6,16 +6,16 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class Users implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    int userid;
+    Integer userid;
 	
 	String full_name;
 	String gender;
@@ -36,12 +36,12 @@ public class Users implements Serializable{
 	String phone;
 	String email;
 	String profile_picture;
-	boolean account_status;
+	Boolean account_status;
 	Boolean processed_by;
 	@Temporal(TemporalType.DATE)
-	Date user_birtday =new Date();
+	Date user_birtday = new Date();
 	@Temporal(TemporalType.DATE)
-	Date user_dayjoin =new Date();
+	Date user_dayjoin = new Date();
 	String gg_id;
 	Boolean user_role;
 	

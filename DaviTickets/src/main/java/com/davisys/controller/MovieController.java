@@ -29,9 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.davisys.dao.MovieDAO;
 import com.davisys.entity.Movie;
 
-import jakarta.persistence.criteria.Path;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.persistence.criteria.Path;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 

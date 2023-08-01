@@ -14,7 +14,7 @@ import com.davisys.dao.ShowtimeDAO;
 import com.davisys.dao.UserDAO;
 import com.davisys.entity.Movie;
 
-import jakarta.websocket.Session;
+import javax.websocket.Session;
 
 @Controller
 public class AdminController {
