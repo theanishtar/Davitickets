@@ -13,6 +13,7 @@ import com.davisys.dao.PaymentDAO;
 import com.davisys.dao.ShowtimeDAO;
 import com.davisys.dao.UserDAO;
 import com.davisys.entity.Movie;
+import com.davisys.service.MailerServiceImpl;
 
 import jakarta.websocket.Session;
 
@@ -24,10 +25,20 @@ public class AdminController {
 	UserDAO userDao;
 	@Autowired
 	ShowtimeDAO showtimeDao;
+	@Autowired
+	MailerServiceImpl mailer;
 	
 	Date now = new Date();
 	int day = Integer.valueOf(now.getDay());
 	int month = Integer.valueOf(now.getMonth());
+	
+	
+	@GetMapping("/mail")
+	public String mail(Model m) {
+		
+		mailer.send("chauhoaiphuc.2003@gmail.com", "cc", "html");
+		return "admin/dasboard";
+	}
 	
 	@GetMapping("/")
 	public String index(Model m) {

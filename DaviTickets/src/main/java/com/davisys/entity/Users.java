@@ -10,9 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -43,10 +41,14 @@ public class Users implements Serializable{
 	@Temporal(TemporalType.DATE)
 	Date user_dayjoin =new Date();
 	String gg_id;
-	Boolean user_role;
 	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "users")
 	List<Booking> booking;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "users")
+	List<UserRoles> userRole;
+	
 }

@@ -1,17 +1,14 @@
 package com.davisys.entity;
 
-import java.io.Serializable;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,20 +16,21 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "seat")
+@Table(name = "userRoles")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Seat implements Serializable{
+public class UserRoles implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer seat_id;
+    Integer id;
 	
-	Boolean vip;
-	String row_symbol;
-	Integer seat_num;
-	Boolean available;
+	@ManyToOne
+	@JoinColumn(name = "userid")
+	Users users;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "seat")
-	List<Booking> booking;
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	Roles roles;
+	
+	
 }

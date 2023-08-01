@@ -6,12 +6,8 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,20 +15,17 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "seat")
+@Table(name = "roles")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Seat implements Serializable{
+public class Roles implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer seat_id;
+	String role_id;
 	
-	Boolean vip;
-	String row_symbol;
-	Integer seat_num;
-	Boolean available;
+	String role_name;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "seat")
-	List<Booking> booking;
+	@OneToMany(mappedBy = "roles")
+	List<UserRoles> userRole;
+	
 }

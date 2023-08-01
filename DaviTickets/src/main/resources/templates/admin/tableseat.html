@@ -52,7 +52,7 @@
 			<!-- Nav Item - User Management Menu -->
 			<li class="nav-item active"><a class="nav-link collapsed"
 				th:href="@{/tablesusers}"> <i class="fas fa-fw fa-user"></i> <span>Quản
-						lý người dùng</span>
+						lý ghế</span>
 			</a></li>
 
 			<!-- Nav Item - Movie Management Menu -->
@@ -204,13 +204,13 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-light">Quản lý người dùng</h1>
+					<h1 class="h3 mb-2 text-light">Quản lý ghế</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4 mt-4 border">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-warning">Danh sách
-								người dùng</h6>
+								ghế</h6>
 						</div>
 						<div class="card-body text-light">
 							<div class="table-responsive">
@@ -218,43 +218,31 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>Ảnh đại diện</th>
-											<th>Họ và tên</th>
-											<th style="width: 20%">Email</th>
-											<th>Giới tính</th>
-											<th>Số điện thoại</th>
-											<th>Ngày sinh</th>
-											<th>Ngày gia nhập</th>
-											<th>Xác thực</th>
+											
+											<th>Ghế Vip</th>
+											<th>Hàng Ghế</th>
+											<th>Vị Trí Ghế Theo Hàng</th>
+											<th>Trạng Thái Ghế</th>
 											<th></th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Ảnh đại diện</th>
-											<th>Họ và tên</th>
-											<th style="width: 20%">Email</th>
-											<th>Giới tính</th>
-											<th>Số điện thoại</th>
-											<th>Ngày sinh</th>
-											<th>Ngày gia nhập</th>
-											<th>Xác thực</th>
+											<th>Ghế Vip</th>
+											<th>Hàng Ghế</th>
+											<th>Vị Trí Ghế Theo Hàng</th>
+											<th>Trạng Thái Ghế</th>
 											<th></th>
 										</tr>
 									</tfoot>
 									<tbody>
-										<tr th:each="user:${listUser}" th:object="${user}">
-											<td data-th="Ảnh đại diện"><img alt="" th:src="${user.profile_picture}" width="50xp"></td>
-											<td data-th="Họ và tên" th:text="${user.full_name}"></td>
-											<td data-th="Email" th:text="${user.email}"
-												style="width: 20%"></td>
-											<td data-th="Giới tính" th:text="${user.gender}"></td>
-											<td data-th="Số điện thoại" th:text="${user.phone}"></td>
-											<td data-th="Ngày sinh" th:text="${user.user_birtday}"></td>
-											<td data-th="Ngày gia nhập" th:text="${user.user_dayjoin}"></td>
-											<td data-th="Xác thực" th:text="${user.processed_by}"></td>
+										<tr th:each="seat:${listSeat}" th:object="${seat}">
+											<td data-th="Ghế Vip" th:text="${seat.vip} ? 'Vip' : 'Bình thường' "></td>
+											<td data-th="Hàng Ghế" th:text="${seat.row_symbol}"></td>
+											<td data-th="Vị Trí Ghế Theo Hàng" th:text="${seat.seat_num}"></td>
+											<td data-th="Trạng Thái Ghế" th:text="${seat.available} ? 'Bình thường' : 'Hỏng'"></td>
 											<td data-th="Edit"><a
-												th:href="@{|/editUsers/${user.userid}|}">Chỉnh sửa</a></td>
+												th:href="@{|/editSeat/${seat.seat_id}|}">Chỉnh sửa</a></td>
 										</tr>
 									</tbody>
 								</table>
