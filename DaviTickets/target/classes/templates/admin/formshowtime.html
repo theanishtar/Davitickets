@@ -27,9 +27,8 @@
 						<div class="">
 							<div class="mt-3">
 								<div class="card-body text-center">
-									<label> <img th:src="@{/img/LoveAtFirstSight.png}"
-										alt="" class="img-fluid" style="width: 70%;"> <input
-										name="file" type="file" style="display: none;">
+									<label> 
+										<img th:src="*{movie.poster}" alt="" id="imgId" class="img-fluid" style="width: 70%;"> 
 									</label>
 								</div>
 							</div>
@@ -43,9 +42,9 @@
 										<p class="mb-0">Phim</p>
 									</div>
 									<div class="col-sm-9">
-										<select class="text-muted mb-0" id="movie.movie_id"
+										<select class="text-muted mb-0" th:onchange="loadImg(this.value)" id="movie.movie_id"
 											name="movie.movie_id" th:field="*{movie.movie_id}"
-											required="true">
+											required>
 											<option th:each="listMovie : ${listMovie}"
 												th:value="${listMovie.movie_id}"
 												th:text="${listMovie.title_movie}"
@@ -57,11 +56,28 @@
 								<hr>
 								<div class="row">
 									<div class="col-sm-3">
+										<p class="mb-0">Phòng</p>
+									</div>
+									<div class="col-sm-9">
+										<select class="text-muted mb-0" id="room.room_id"
+											name="room.room_id" th:field="*{room.room_id}"
+											required="true">
+											<option th:each="listRoom : ${listRoom}"
+												th:value="${listRoom.room_id}"
+												th:text="${listRoom.room_name}"
+												th:selected="${listRoom.room_id==forms.room.room_id}">
+											</option>
+										</select>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-3">
 										<p class="mb-0">Ngày chiếu</p>
 									</div>
 									<div class="col-sm-9">
 										<input type="date" class="text-muted mb-0"
-											th:value="${forms.showdate}" th:name="showdate" required>
+											th:value="*{showdate}" th:name="showdate" required>
 										<input type="text" id="fupdate" class="text-muted mb-0"
 											th:value="${alertUpdate}" style="display: none">
 										<input type="text" id="fcreate" class="text-muted mb-0"
@@ -75,7 +91,7 @@
 									</div>
 									<div class="col-sm-9">
 										<input type="time" class="text-muted mb-0"
-											th:value="${forms.start_time}" th:name="start_time" step='1'
+											th:value="*{start_time}" th:name="start_time" step='1'
 											min="00:00:00" max="24:00:00" required>
 									</div>
 								</div>
@@ -86,7 +102,7 @@
 									</div>
 									<div class="col-sm-9">
 										<input type="time" class="text-muted mb-0"
-											th:value="${forms.end_time}" th:name="end_time" step='1'
+											th:value="*{end_time}" th:name="end_time" step='1'
 											min="00:00:00" max="24:00:00" required>
 									</div>
 								</div>
@@ -97,7 +113,7 @@
 									</div>
 									<div class="col-sm-9">
 										<input type="text" class="text-muted mb-0"
-											th:value="${forms.price}" th:name="price" required>
+											th:value="*{price}" th:name="price" required>
 									</div>
 								</div>
 								<hr>
@@ -111,6 +127,12 @@
 									</button>
 									<button class="btn btn-light">
 										<i class="fas fa-fw fa-undo"></i> Làm mới
+									</button>
+									<button th:each="showtime:${listShowtimeNotUse}" th:object="${showtime}"
+										th:formaction="@{|/deleteShowtime/${forms.showtime_id}|}"
+										type="submit" class="btn btn-danger"
+										th:if="*{showtime_id} == ${showtime.showtime_id}">
+										<i class="fas fa-fw fa-video-slash"></i> Xóa
 									</button>
 								</div>
 							</div>
@@ -169,6 +191,26 @@
 
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/datatables-demo.js"></script>
+	
+	<script type="text/javascript">
+		function loadImg(param) {
+			var cbtId = param;
+			$.ajax({
+				url: "/loadImg",
+				type: "get",
+				data: {
+					cbt: cbtId
+				},
+				success: function(data) {
+					document.getElementById("imgId").src = data;
+				},
+				error: function(xhr) {
+					alert("error")
+				}
+
+			});
+		}
+	</script>
 
 	<script type="text/javascript">
 		var data = document.getElementById("fupdate");

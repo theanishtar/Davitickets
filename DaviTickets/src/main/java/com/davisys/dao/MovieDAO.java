@@ -1,6 +1,5 @@
 package com.davisys.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +20,8 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	
 	@Query(value = "SELECT * FROM Movie WHERE title_movie=:title", nativeQuery = true)
 	public Movie findIdMovieByTitle(String title);
+	
+	@Query(value = "SELECT * FROM Movie WHERE movie.movie_id NOT IN (SELECT showtime.movie_id FROM showtime)", nativeQuery = true)
+	public List<Movie> getMovieNotUse();
+	
 }

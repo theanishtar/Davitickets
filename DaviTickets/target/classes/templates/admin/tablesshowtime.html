@@ -216,6 +216,7 @@
 									cellspacing="0">
 									<thead>
 										<tr>
+											<th>Poster</th>
 											<th>Phim</th>
 											<th>Ngày chiếu</th>
 											<th>Giờ chiếu</th>
@@ -226,6 +227,7 @@
 									</thead>
 									<tfoot>
 										<tr>
+											<th>Poster</th>
 											<th>Phim</th>
 											<th>Ngày chiếu</th>
 											<th>Giờ chiếu</th>
@@ -236,6 +238,7 @@
 									</tfoot>
 									<tbody>
 										<tr th:each="showtime:${listShowtime}" th:object="${showtime}">
+											<td data-th="Poster"><img alt="" th:src="${showtime.movie.poster}" width="50xp" style="border-radius: 0% !important;"></td>
 											<td data-th="Phim" th:text="${showtime.movie.title_movie}"></td>
 											<td data-th="Ngày chiếu" th:text="${showtime.showdate}"></td>
 											<td data-th="Giờ chiếu" th:text="${showtime.start_time}"></td>

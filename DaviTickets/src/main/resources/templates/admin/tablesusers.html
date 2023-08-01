@@ -220,7 +220,6 @@
 										<tr>
 											<th>Ảnh đại diện</th>
 											<th>Họ và tên</th>
-
 											<th style="width: 20%">Email</th>
 											<th>Giới tính</th>
 											<th>Số điện thoại</th>
@@ -234,7 +233,6 @@
 										<tr>
 											<th>Ảnh đại diện</th>
 											<th>Họ và tên</th>
-
 											<th style="width: 20%">Email</th>
 											<th>Giới tính</th>
 											<th>Số điện thoại</th>
@@ -246,9 +244,8 @@
 									</tfoot>
 									<tbody>
 										<tr th:each="user:${listUser}" th:object="${user}">
-											<td data-th="Ảnh đại diện"><img alt="" src=""></td>
+											<td data-th="Ảnh đại diện"><img alt="" th:src="${user.profile_picture}" width="50xp"></td>
 											<td data-th="Họ và tên" th:text="${user.full_name}"></td>
-
 											<td data-th="Email" th:text="${user.email}"
 												style="width: 20%"></td>
 											<td data-th="Giới tính" th:text="${user.gender}"></td>
