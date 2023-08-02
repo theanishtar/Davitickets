@@ -5,13 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.davisys.entity.Users;
 
-public interface UserDAO extends JpaRepository<Users, Integer>{
-	@Query(value = "SELECT CONVERT( VARCHAR ,COUNT(userid)) FROM users WHERE MONTH(user_dayjoin) =:month", nativeQuery = true)
-	public String userStatisticsMonth(int month);
-	
-	@Query(value = "SELECT * FROM Users WHERE userid=:id", nativeQuery = true)
-	public Users findIdUsers(int id);
-	
+public interface UserDAO extends JpaRepository<Users, Integer> {
 
 	@Query(value = "SELECT * FROM users WHERE email=:email OR phone=:email", nativeQuery = true)
 	public Users findEmaiAndPhonelUser(String email);
@@ -23,5 +17,5 @@ public interface UserDAO extends JpaRepository<Users, Integer>{
 	@Query(value = "SELECT * FROM users WHERE email=:email OR phone=:phone", nativeQuery = true)
 	public Users findPhoneAndEmailUser(String email, String phone);
 
-	
+
 }
