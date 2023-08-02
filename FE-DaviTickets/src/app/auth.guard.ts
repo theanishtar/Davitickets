@@ -24,7 +24,7 @@ export class authGuard implements CanActivate {
         type: 'info',
         duration: 3000,
       });
-      this.router.navigate(['home']);
+      this.router.navigate(['**']);
       return false;
     }
     return true;

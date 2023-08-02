@@ -1,9 +1,10 @@
-import { Component, ElementRef, ViewChild  } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 // import { ListMovieService } from '../service/list-movie.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { LoginService } from '../service/login.service';
+import { ListMovieService } from '../service/list-movie.service';
 import '../../assets/toast/main.js';
 declare var toast: any;
 @Component({
@@ -20,14 +21,15 @@ export class ListMovieBookingComponent {
   currentMonth: number;
   currentYear: number;
   dateList: { date: Date; dayOfWeek: string }[] = [];
-
+  // listSeat:any[] = [];
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
     private loginService: LoginService,
+    private listMovieService: ListMovieService,
     private router: Router,
-  ) { 
-    this.userDisplayName = this.cookieService.get('full_name');  
+  ) {
+    this.userDisplayName = this.cookieService.get('full_name');
   }
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class ListMovieBookingComponent {
     let activeCard: any = null;
     function handleClick(event: any) {
       const clickedCard = event.target.closest('.nav-item');
-      
+
       if (clickedCard) {
         if (activeCard) {
           activeCard.removeEventListener('click', handleClick);
@@ -93,8 +95,7 @@ export class ListMovieBookingComponent {
     const url = `${this.apiMovieUrl}/${formattedDate}`;
 
     this.http.get<any[]>(url).subscribe(items => {
-      console.log(items);
-      if(items.length == 0){
+      if (items.length == 0) {
         new toast({
           title: 'Thông báo!',
           message: 'Lịch chiếu chưa được cập nhật',
@@ -102,7 +103,7 @@ export class ListMovieBookingComponent {
           duration: 1500,
         });
         this.items = null;
-      }else{
+      } else {
         this.items = items;
       }
     });
@@ -116,12 +117,39 @@ export class ListMovieBookingComponent {
 
     return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   }
+onclickChooseMovie(idMovie: number, idShowTime: number){
+  return this.listMovieService.onclickChooseShowtime(idMovie, idShowTime);
+}
+  // onclickChooseShowtime(idMovie: number, idShowTime: number) {
+  //   var ck = this.cookieService.get('isUserLoggedIn');
+  //   let userid=this.cookieService.get('userid');
 
-  isLogin(){
+  //   var data = {"userid":userid, "idMovie":idMovie, "idShowTime":idShowTime};
+    
+  //   console.log("Bắt đầu");
+  //   // alert(JSON.stringify(data))
+    
+  //   this.listMovieService.loadDataBooking(data).subscribe(listSeat => {
+  //     console.log("aaaaaaaaa: " + listSeat)
+  //     if (listSeat != undefined) {
+  //     //  this.listSeat = listSeat;
+     
+  //     this.listMovieService.setListData(listSeat);
+
+  //     alert("1 "+this.listMovieService.getListData())
+  //     this.router.navigate(['booking']);
+  //     }else{
+  //       console.log("Lỗi nè");
+  //     }
+
+  //   })
+  // }
+
+  isLogin() {
     return this.loginService.isLogin();
   }
 
-  logout(){
+  logout() {
     return this.loginService.logout();
   }
 }

@@ -86,14 +86,15 @@
                                     >
                                       2D Phụ Đề Việt
                                     </label>
-                                    <div class="show-time" *ngFor="let time of item.start_time">
+                                    <div class="show-time"*ngFor="let time of item.start_time">
                                         <a
-                                        class="show-time-item"
-                                      href="/booking"
-                                      rel="nofollow"
-                                    >
-                                      <span class="time">{{time[0]}}</span>
-                                    </a>
+                                        
+                                          class="show-time-item"
+                                          rel="nofollow"
+                                          (click)="onclickChooseMovie(item.movie_id,time[1])"
+                                        >
+                                        <span class="time">{{time[0]}}</span>
+                                      </a>
                                     </div>
                                   </div>
                                 </div>

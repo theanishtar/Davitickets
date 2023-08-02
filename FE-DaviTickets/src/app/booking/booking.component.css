@@ -49,11 +49,12 @@
 }
 .seat.your {
   /* border: 1px solid #07A846; */
-  background: #ee5007;
+  background: #ee5007 !important;
+  color: white !important;
 }
 .seat.vip {
-  /* border: 1px solid #07A846; */
-  background: #07A846;
+  border: 1px solid #07A846;
+  /* background: #07A846; */
 }
 .seat.notselected {
   background-color: red;
@@ -66,14 +67,16 @@
   background-color: #fff;
   color: black;
 }
-
-.seat:nth-of-type(2) {
+.row-seat{
+  display: flex;
+}
+/* .seat:nth-of-type(2) {
   margin-right: 18px;
-}
+} */
 
-.seat:nth-last-of-type(2) {
+/* .seat:nth-last-of-type(2) {
   margin-left: 18px;
-}
+} */
 .seat.notselected:hover,
 .seat.occupied:hover,
 .seat.your:hover{
@@ -82,7 +85,13 @@
 .seat:hover{
   cursor: pointer;
 }
-
+.seat.disabled {
+  /* Trạng thái giả lập disabled */
+  cursor: not-allowed;
+  background-color: #f8f8f8;
+  color: #ccc;
+  border: 1px solid #ddd;
+}
 .showcase {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 5px 10px;
@@ -216,10 +225,10 @@ p.text span {
 .site-footer-link {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-.text-white {
+.text-white, span  {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;  
 }
-i.fa-solid.fa-chevron-down {
+i.fa-solid.fa-chevron-down{
   font-size: 11px;
 }
 .dropdown {
@@ -254,6 +263,16 @@ i.fa-solid.fa-chevron-down {
 .footer-booking{
   display: flex;
 }
+p.text.seat-name {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* line-height: 20px; */
+  -webkit-line-clamp: 3;
+  /* height: 60px; */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
 @media screen and (max-width: 661px){
   .seat {
     background-color: #444451;
@@ -261,4 +280,10 @@ i.fa-solid.fa-chevron-down {
     width: 20px;
     font-size: 7px;
   }
+  }
+
+  .disabled-div {
+    pointer-events: none;
+    opacity: 0.5; /* Nếu bạn muốn làm mờ div khi bị disable */
+    /* Các thuộc tính khác để trang trí div bị disable (tuỳ chọn) */
   }

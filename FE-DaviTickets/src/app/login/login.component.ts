@@ -83,7 +83,8 @@ export class LoginComponent {
             this.loginService.log(userRes).subscribe((resp) => {
               console.log(resp)
               this.cookieService.set('full_name', resp.user.full_name);
-              this.cookieService.set('isUserLoggedIn', JSON.stringify(res.user));
+              this.cookieService.set('userid', resp.user.userid);
+              this.cookieService.set('isUserLoggedIn',resp.user.sessionID);
                 this.router.navigate(['home']);
                 new toast({
                   title: 'Thành công!',
@@ -96,7 +97,7 @@ export class LoginComponent {
                 });
             });
           }
-        });}
+        });} 
     });
 
 
@@ -132,19 +133,30 @@ export class LoginComponent {
           });
         }
         if (res == '') {
+          this.checkLoginFail++
           new toast({
             title: 'Thất bại!',
             message: 'Email hoặc mật khẩu không đúng!',
             type: 'error',
             duration: 5000,
           });
+          // if(this.checkLoginFail === 5){
+          //   new toast({
+          //     title: 'Thông báo!',
+          //     message: 'Vui lòng quay lại trong 1 phút',
+          //     type: 'warning',
+          //     duration: 5000,
+          //   });
+          //   this.checkLoginFail = 0;
+          // }
         } else {
           this.cookieService.set('full_name', res.user.full_name);
+          this.cookieService.set('userid', res.user.userid);
           this.cookieService.set(
             'isUserLoggedIn',
             JSON.stringify(res.sesionId)
           );
-
+          this.cookieService.set('userid', res.user.userid);
           if (this.checkedRemember == true && res.user.user_role == false) {
             this.setCookie('sessionID', res.user.sesionId, 2);
           }
@@ -166,6 +178,7 @@ export class LoginComponent {
             });
           }
         }
+        
       });
     } else {
       return;
@@ -296,7 +309,7 @@ export class LoginComponent {
           });
         }
         alert(res)
-        if (res == "success") {
+        if (res.sessionID == "success") {
           Swal.fire({
             title:
               "<h2 style='color:red; font-size=10px'>Bạn có muốn đăng nhập với tài khoản " +

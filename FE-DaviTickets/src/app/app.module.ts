@@ -23,9 +23,17 @@ import {
 } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
-import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+
+import { environment } from '../environments/environment';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { ErrorComponent } from './error/error.component';
+import { UniquePipe } from './unique.pipe';
 
 @NgModule({
   declarations: [
@@ -38,8 +46,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ProfileComponent,
     HistoryComponent,
     ChangepasswordComponent,
-    ForgotpasswordComponent
-
+    ForgotpasswordComponent,
+    ErrorComponent,
+    UniquePipe,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +60,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     GoogleSigninButtonModule,
     MatTableModule,
     MatButtonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
   providers: [
     {
@@ -75,4 +88,4 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

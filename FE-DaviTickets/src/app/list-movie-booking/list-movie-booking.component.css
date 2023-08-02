@@ -320,16 +320,17 @@
     font-size: 15px;
     padding: 5px;
     border-radius: 10px;
+    margin: 5px;
   }
   .list {
     width: -webkit-fill-available;
   }
 
-  /* @media screen and (max-width: 390px){
-    ul.menu {
-      max-width: 320px;
-    }
-  } */
+  @media screen and (max-width: 769px){
+    img.rounded.img-fluid {
+      max-width: 15%;
+  }
+  }
 
   @media screen and (max-width: 993px){
     ul.menu {
@@ -363,5 +364,6 @@
     width: auto;
     border-radius: 0;
   }
+ 
   }
   
