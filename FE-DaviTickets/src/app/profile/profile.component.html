@@ -18,14 +18,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/history">Lịch sử</a>
-                  </li>
+                </li>
                 <li class="nav-item dropdown">
-                    <span class="nav-link">Tài khoản <i class="fa-solid fa-chevron-down"></i></span>
-                  <div class="dropdown-content">
-                      <a class="nav-link" href="/profile">Thông tin</a>
-                      <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
-                      <a class="nav-link" href="/home">Đăng xuất</a>
-                  </div>
+                    <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
+                    <div class="dropdown-content">
+                        <a class="nav-link" href="/profile">Thông tin</a>
+                        <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
+                        <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
+                    </div>
                 </li>
             </ul>
 
@@ -34,72 +34,73 @@
     </div>
 </nav>
 <div class="main_content">
-  <div class="containers">
-      <div class="title">Thông tin tài khoản</div>
-      <div class="content">
-          <form id="profileForm" [formGroup]="profileForm" (ngSubmit)="updateProfile()" action="" novalidate>
-              <div class="user-details">
-                  <div class="row" style="width: 100%;">
-                      <div class="col-md-6 input-box"> 
-                          <input type="file" style="display: none;">
-                          <img class="profile-picture" src="../assets/images/users/user1.jpg" width="250px">
+    <div class="containers">
+        <div class="title">Thông tin tài khoản</div>
+        <div class="content">
+            <form id="profileForm" [formGroup]="profileForm" (ngSubmit)="updateProfile()" action="" novalidate>
+                <div class="user-details">
+                    <div class="row" style="width: 100%;">
+                        <div class="col-md-6 input-box">
+                            <label class="upload-image">
+                                <input type="file" class="file" (change)="chooseFile($event)" style="display: none;">
+                                <img class="profile-picture" src="" width="250px">
+                            </label>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="input-box" style="width: 100%;">
+                                <span class="details">Họ và tên</span>
+                                <input formControlName="full_name" value="{{userDisplayName}}" id="full_name" type="text" required>
+                            </div>
+                            <div class="input-box" style="width: 100%;">
+                                <span class="details">Email</span>
+                                <input formControlName="email" id="email" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Số điện thoại</span>
+                        <input type="text" formControlName="phone" id="phone" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Mật khẩu</span>
+                        <input type="text" formControlName="password" id="password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Ngày sinh</span>
+                        <input type="date" formControlName="birthday" id="birthday" required>
+                    </div>
 
-                      </div>
-                      <div class="col-md-6 ">
-                          <div class="input-box" style="width: 100%;">
-                              <span class="details">Họ và tên</span>
-                              <input formControlName="full_name" id="full_name" type="text" required>
-                          </div>
-                          <div class="input-box" style="width: 100%;">
-                              <span class="details">Email</span>
-                              <input formControlName="email" id="email" type="text" required>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="input-box">
-                    <span class="details">Số điện thoại</span>
-                    <input type="text" formControlName="phone" id="phone" required>
-                </div>
-                  <div class="input-box">
-                      <span class="details">Mật khẩu</span>
-                      <input type="text" formControlName="password" id="password" required>
-                  </div>
-                  <div class="input-box">
-                      <span class="details">Ngày sinh</span>
-                      <input type="date" formControlName="birthday" id="birthday" required>
-                  </div>
-                 
-                  <div class="input-box">
-                    <span class="details">Giới tính</span>
-                    <input type="radio" formControlName="gender" value="true" name="gender" id="dot-1">
-                    <input type="radio" formControlName="gender" value="false" name="gender" id="dot-2">
-                    <input type="radio" formControlName="gender" value="other" name="gender" id="dot-3">
-                    <div class="category">
-                        <label for="dot-1">
-                            <span class="dot one"></span>
-                            <span class="gender">Nam</span>
-                        </label>
-                        <label for="dot-2">
-                            <span class="dot two"></span>
-                            <span class="gender">Nữ</span>
-                        </label>
-                        <label for="dot-3">
-                            <span class="dot three"></span>
-                            <span class="gender">Khác</span>
-                        </label>
+                    <div class="input-box">
+                        <span class="details">Giới tính</span>
+                        <input type="radio" formControlName="gender" value="true" name="gender" id="dot-1">
+                        <input type="radio" formControlName="gender" value="false" name="gender" id="dot-2">
+                        <input type="radio" formControlName="gender" value="other" name="gender" id="dot-3">
+                        <div class="category">
+                            <label for="dot-1">
+                                <span class="dot one"></span>
+                                <span class="gender">Nam</span>
+                            </label>
+                            <label for="dot-2">
+                                <span class="dot two"></span>
+                                <span class="gender">Nữ</span>
+                            </label>
+                            <label for="dot-3">
+                                <span class="dot three"></span>
+                                <span class="gender">Khác</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
-              </div>
-              
-              <div class="row" style="display: flex;">
-                <div class="field button-field col-md-6">
-                    <button type="submit">Xác nhận</button>
-                </div>
-                <div class="field button-field col-md-6">
+
+                <div class="row" style="display: flex;">
+                    <div class="field button-field col-md-6">
+                        <button type="submit" (click)="addData()">Xác nhận</button>
+                    </div>
+                    <div class="field button-field col-md-6">
                         <button>Hủy</button>
-              </div>
-              </div>
-          </form>
-      </div>
-  </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
