@@ -22,75 +22,80 @@ import com.davisys.reponsitory.UsersReponsitory;
 import com.davisys.service.AuthenticationService;
 import com.davisys.entity.*;
 
-@RestController
-@CrossOrigin("*")
-@RequestMapping
+
 public class Test {
 	@Autowired
 	UsersReponsitory usersReponsitory;
 
 	@Autowired
 	UserDAO dao;
-	
+
 	@Autowired
 	AuthenticationService authenticationService;
 
 	@GetMapping("/auth/login/{email}")
 	public ResponseEntity<Optional<Users>> getUsers(@PathVariable String email) {
-		System.out.println("email: "+email);
+		System.out.println("email: " + email);
 		try {
 //			return ResponseEntity.ok(authenticationService.authenticationResponse(authenticationRequest));
 			Optional<Users> user = usersReponsitory.findByEmail(email);
 //			Users user = userDAO.findEmailUser(email);
 			return ResponseEntity.status(200).body(user);
 		} catch (Exception e) {
-			System.out.println("error testLogin: "+e);
+			System.out.println("error testLogin: " + e);
 			throw e;
 		}
-		
+
 	}
-	
-	@PostMapping("/anony/login")
-	public ResponseEntity<AuthenticationResponse> authLog(@RequestBody AuthenticationRequest authenticationRequest){
-		return ResponseEntity.ok(authenticationService.authenticationResponse(authenticationRequest));
-	}
-	
+
+	/*
+	 * @PostMapping("/oauth/login") public ResponseEntity<AuthenticationResponse>
+	 * authLog(@RequestBody AuthenticationRequest authenticationRequest) { Users
+	 * user = dao.findEmailUser(authenticationRequest.getEmail());
+	 * 
+	 * if (user != null &&
+	 * user.getPassword().equals(authenticationRequest.getPassword())) { return
+	 * ResponseEntity.ok(authenticationService.authenticationResponse(
+	 * authenticationRequest)); } return ResponseEntity.status(403).body(null);
+	 * 
+	 * }
+	 */
+
 	@GetMapping("/user")
 	@RolesAllowed("ROLE_USER")
-	public ResponseEntity<String> s(){
+	public ResponseEntity<String> s() {
 		return ResponseEntity.ok("User successs");
 	}
-	
+
 	@GetMapping("/user/test")
 	@RolesAllowed("ROLE_USER")
-	public ResponseEntity<String> sa(){
-		return ResponseEntity
-				.ok("User successs");
+	public ResponseEntity<String> sa() {
+		return ResponseEntity.ok("User successs");
 	}
-	
+
 	@GetMapping("/admin")
-	@RolesAllowed("ROLE_ADMIN")
-	public ResponseEntity<String> c(){
+	public ResponseEntity<String> c() {
 		return ResponseEntity.ok("ADMin succcesss");
 	}
-	
+
 	@GetMapping("/admin/test")
 	@RolesAllowed("ROLE_ADMIN")
 	public ResponseEntity<String> testAdmin() {
 		return ResponseEntity.ok("I am admin");
 	}
-	
+
 	@GetMapping("/anony")
 	public ResponseEntity<String> getUs() {
 		return ResponseEntity.status(200).body("success");
-		
+
 	}
+
 	@GetMapping("/anony/test")
 	public ResponseEntity<String> gets() {
 		Users u = dao.findEmailUser("nghiaqh@fe.edu.vn");
 		System.out.println(u.getGender());
-		
+
 		return ResponseEntity.status(200).body("g");
-		
+
 	}
 }
