@@ -51,7 +51,7 @@ CREATE TABLE seat(
 
 CREATE TABLE roles(
     role_id INT IDENTITY PRIMARY KEY NOT NULL,
-	role_name NVARCHAR(50) NOT NULL,
+	[name] NVARCHAR(50) NOT NULL,
 	role_des NVARCHAR(max) NULL
 )
 
@@ -59,16 +59,17 @@ CREATE TABLE roles(
 CREATE TABLE users (
 	userid INT IDENTITY PRIMARY KEY NOT NULL,
 	full_name NVARCHAR(50) NOT NULL,
+	[user_name] VARCHAR(20) NOT NULL,
 	gender NVARCHAR(5) NULL,
-	user_password NVARCHAR(MAX) NOT NULL,
+	user_password VARCHAR(MAX) NOT NULL,
 	phone VARCHAR(20) NULL,
-	email NVARCHAR(100) NOT NULL,
-	profile_picture NVARCHAR(MAX) NULL,
+	email VARCHAR(100) NOT NULL,
+	profile_picture VARCHAR(MAX) NULL,
 	account_status BIT NULL, --trạng thái hoạt động
 	processed_by BIT NULL, --xác thực
 	user_birtday DATE NULL,
 	user_dayjoin DATE NOT NULL,
-	gg_id NVARCHAR(MAX) NULL,
+	gg_id VARCHAR(MAX) NULL,
 )
 
 CREATE TABLE user_role(
@@ -217,13 +218,13 @@ INSERT INTO roles VALUES
 	('ROLE_USER',N'Người dùng')
 
 INSERT INTO users VALUES 
-	(N'Trần Hữu Đang', 'Nam', N'dangth', N'0917288723', N'dangthpc04349@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/dangth.jpg?alt=media&token=e223770c-06cb-448e-9025-43000f55d764', 1, 1, CAST('9-7-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
-	(N'Lê Bích Vi', 'Nữ', N'vilb', N'0178296424', N'vilbpc04354@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/vilb.jpg?alt=media&token=83641b31-7ea9-432d-bd6b-4dd0f5e9062f', 1, 1, CAST('6-2-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
-	(N'Phùng Quốc Vinh', 'Nam', N'vinhpq', N'0862738927', N'vinhpqpc04338@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/vinhpq.jpg?alt=media&token=635b97b6-bdf4-49b5-ae07-a802c17a979e', 1, 1, CAST('11-15-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
-	(N'Đoàn Hiệp Sỹ', 'Nam', N'sydh', N'0836452473', N'sydhpc04388@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/sydh.jpg?alt=media&token=f907c8e9-4712-4448-b7a9-1d9df8f9b053', 1, 1, CAST('4-7-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
-	(N'Nguyễn Khánh Đan', 'Nữ', N'dannk', N'0924637483', N'dannkpc04351@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/dannk.jpg?alt=media&token=2cb34557-c380-4095-8a10-8a211add0940', 1, 1, CAST('11-7-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
-	(N'Châu Hoài Phúc', 'Nam', N'phucch', N'0918093162', N'phucchpc04191@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/phucch.jpg?alt=media&token=8ee61c10-23b1-41a5-97ed-b1e0e6d894ed', 1, 1, CAST('11-2-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
-	(N'Quách Hữu Nghĩa', 'Nam', N'nghiahq', N'012346789', N'nghiaqh@fe.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/thaynghia.jpg?alt=media&token=9fc95aed-1dfe-4b87-8ebe-2903ffd50678', 1, 1, CAST('1-1-1990' AS DATE), CAST('7-22-2023' AS DATE), NULL)
+	(N'Trần Hữu Đang',N'dangth', 'Nam', '$2a$10$AR78OxmWNlFMnmFlv.XWFe2TECixCdfV.2K9G4yrmQ1irWXvxcL72', N'0917288723', N'dangthpc04349@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/dangth.jpg?alt=media&token=e223770c-06cb-448e-9025-43000f55d764', 1, 1, CAST('9-7-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
+	(N'Lê Bích Vi', N'vilb', 'Nữ', '$2a$10$SvchmABRVVZjeLgOW4Dez.q7T1kcybCdiQF70DHKNs.nX30vmYLVi', N'0178296424', N'vilbpc04354@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/vilb.jpg?alt=media&token=83641b31-7ea9-432d-bd6b-4dd0f5e9062f', 1, 1, CAST('6-2-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
+	(N'Phùng Quốc Vinh',N'vinhpq',  'Nam', '$2a$10$aF6y9hGg06.We5mXYua13eM/N4o2wq0UZSD2JgC0PVja.1x1chXjS', N'0862738927', N'vinhpqpc04338@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/vinhpq.jpg?alt=media&token=635b97b6-bdf4-49b5-ae07-a802c17a979e', 1, 1, CAST('11-15-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
+	(N'Đoàn Hiệp Sỹ',N'sydh', 'Nam', '$2a$10$DYKf7ahE.Feac9JEy8exP.hMYXtaI5aayfeYua0ZCGVV0RXvu5.Gy', N'0836452473', N'sydhpc04388@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/sydh.jpg?alt=media&token=f907c8e9-4712-4448-b7a9-1d9df8f9b053', 1, 1, CAST('4-7-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
+	(N'Nguyễn Khánh Đan',N'dannk', 'Nữ', '$2a$10$CRFxFV1oJiYT0rTa3STe.ubKEz1V59HrdOSCl1OA6uVG2xYretjQ6', N'0924637483', N'dannkpc04351@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/dannk.jpg?alt=media&token=2cb34557-c380-4095-8a10-8a211add0940', 1, 1, CAST('11-7-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
+	(N'Châu Hoài Phúc', N'phucch','Nam', '$2a$10$pT5QFvN2Ha5jiOCtZTK.ZOY0dS5MKC/K31S2jyg2Ln978nju1BxCq', N'0918093162', N'phucchpc04191@fpt.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/phucch.jpg?alt=media&token=8ee61c10-23b1-41a5-97ed-b1e0e6d894ed', 1, 1, CAST('11-2-2003' AS DATE), CAST('7-22-2023' AS DATE), NULL),
+	(N'Quách Hữu Nghĩa',N'nghiahq', 'Nam', N'$2a$10$WzBhlbBVtJxyafSiM1os9.4S0tDkSmoYgWY/om0Ma7dBBz9jlpUUq', N'012346789', N'nghiaqh@fe.edu.vn', 'https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/thaynghia.jpg?alt=media&token=9fc95aed-1dfe-4b87-8ebe-2903ffd50678', 1, 1, CAST('1-1-1990' AS DATE), CAST('7-22-2023' AS DATE), NULL)
 
 INSERT INTO user_role VALUES
 	(1,1),
@@ -232,7 +233,8 @@ INSERT INTO user_role VALUES
 	(4 ,2),
 	(5 ,2),
 	(6 ,2),
-	(7 ,1)
+	(7 ,1),
+	(7 ,2)
 
 INSERT INTO booking VALUES 
 	(1, 27, 1, CAST('2023-06-17' AS Date)),
@@ -330,5 +332,9 @@ SELECT * FROM booking INNER JOIN payment ON payment.booking_id = booking.booking
 
 */
 
+select * from roles
+select * from users
+select * from user_role
 
-SELECT *from roles
+SELECT r.name, r.role_des as name FROM users u INNER JOIN user_role ur ON u.userid = ur.userid 
+						INNER JOIN roles r ON r.role_id =ur.role_id  and u.email='nghiaqh@fe.edu.vn'
