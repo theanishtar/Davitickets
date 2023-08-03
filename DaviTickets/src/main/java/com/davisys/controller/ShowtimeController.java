@@ -21,7 +21,7 @@ import com.davisys.entity.Movie;
 import com.davisys.entity.Room;
 import com.davisys.entity.Showtime;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ShowtimeController {

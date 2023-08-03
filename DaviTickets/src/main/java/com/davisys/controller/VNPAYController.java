@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.davisys.config.TestVNPAYConfig;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class VNPAYController {

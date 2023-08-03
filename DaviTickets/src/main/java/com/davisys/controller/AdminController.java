@@ -15,7 +15,7 @@ import com.davisys.dao.UserDAO;
 import com.davisys.entity.Movie;
 import com.davisys.service.MailerServiceImpl;
 
-import jakarta.websocket.Session;
+import javax.websocket.Session;
 
 @Controller
 public class AdminController {

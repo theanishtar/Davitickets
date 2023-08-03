@@ -13,9 +13,9 @@ public class DaviTicketsApplication {
 		SpringApplication.run(DaviTicketsApplication.class, args);
 	}
 	
-//	@Bean
-//	public ErrorControllerHandle errorControllerHandle() {
-//		return new ErrorControllerHandle();
-//	}
+	@Bean
+	public ErrorControllerHandle errorControllerHandle() {
+		return new ErrorControllerHandle();
+	}
 
 }
