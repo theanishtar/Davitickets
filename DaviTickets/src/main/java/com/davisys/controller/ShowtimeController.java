@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.davisys.dao.MovieDAO;
+import com.davisys.dao.RoomDAO;
 import com.davisys.dao.ShowtimeDAO;
 import com.davisys.entity.Movie;
+import com.davisys.entity.Room;
 import com.davisys.entity.Showtime;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,23 +26,30 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ShowtimeController {
 	@Autowired
-	ShowtimeDAO showtimeDao;
+	ShowtimeDAO showtimeDAO;
 	@Autowired
-	MovieDAO movieDao;
+	MovieDAO movieDAO;
+	@Autowired
+	RoomDAO roomDAO;
 	@Autowired
 	HttpServletRequest request;
 	
 	String editORadd = "add";
 	String update = "";
 	String create = "";
+	String imgDavi = "https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/davi.png?alt=media&token=c3f7e0b9-b0a4-481f-8929-a47e02c4ed21";
 
 	@GetMapping("/showtime")
 	public String showtime(Model m) {
-		List<Movie> listMovie = movieDao.findAll();
+		List<Movie> listMovie = movieDAO.findAll();
+		List<Room> listRoom = roomDAO.findAll();
 		editORadd = "add";
 		m.addAttribute("editORadd", editORadd);
 		
 		Showtime showtime = new Showtime();
+		Movie movie = new Movie();
+		movie.setPoster(imgDavi);
+		showtime.setMovie(movie);
 		if(create == "true") {
 			m.addAttribute("alertCreate", "true");
 		}
@@ -48,7 +57,9 @@ public class ShowtimeController {
 			m.addAttribute("alertCreate", "false");
 		}
 		create = "";
+		
 		m.addAttribute("listMovie", listMovie);
+		m.addAttribute("listRoom", listRoom);
 		m.addAttribute("forms", showtime);
 		m.addAttribute("actives", "active");
 		return "admin/formshowtime";
@@ -62,7 +73,7 @@ public class ShowtimeController {
 	}
 
 	public void loadDataShowtime(Model m) {
-		List<Showtime> listShowtime = showtimeDao.findAll();
+		List<Showtime> listShowtime = showtimeDAO.findAll();
 		m.addAttribute("listShowtime", listShowtime);
 	}
 	
@@ -71,9 +82,13 @@ public class ShowtimeController {
 	public String editMovie(Model m, @PathVariable("showtime_id") int showtime_id) {
 		editORadd = "edit";
 		m.addAttribute("editORadd", editORadd);
-		List<Movie> listMovie = movieDao.findAll();
-		Showtime showtime = showtimeDao.findIdShowtime(showtime_id);
+		List<Movie> listMovie = movieDAO.findAll();
+		List<Room> listRoom = roomDAO.findAll();
+		List<Showtime> listShowtimeNotUse = showtimeDAO.getShowtimeNotUse();
+		Showtime showtime = showtimeDAO.findIdShowtime(showtime_id);
 		m.addAttribute("listMovie", listMovie);
+		m.addAttribute("listRoom", listRoom);
+		m.addAttribute("listShowtimeNotUse", listShowtimeNotUse);
 		m.addAttribute("forms", showtime);
 		if(update == "true") {
 			m.addAttribute("alertUpdate", "true");
@@ -88,13 +103,14 @@ public class ShowtimeController {
 	public String updateShowtime(Model m, @PathVariable("showtime_id") int showtime_id) {
 		try {
 			update = "true";
-			Showtime showtime = showtimeDao.findIdShowtime(showtime_id);
+			Showtime showtime = showtimeDAO.findIdShowtime(showtime_id);
 			String movie_id = request.getParameter("movie.movie_id");
-			Movie movie = movieDao.findIdMovie(Integer.valueOf(movie_id));
-			;
-			showtime.setMovie(movie);
+			String room_id = request.getParameter("room.room_id");
+			Room room = roomDAO.findIdRoom(Integer.valueOf(room_id));
+			Movie movie = movieDAO.findIdMovie(Integer.valueOf(movie_id));
 			showtime.setShowtime_id(showtime_id);
-
+			showtime.setRoom(room);
+			showtime.setMovie(movie);
 			// cap nhat ngay
 			String showdate = request.getParameter("showdate");
 			String pattern = "yyyy-MM-dd";
@@ -119,7 +135,7 @@ public class ShowtimeController {
 			}
 			String price = request.getParameter("price");
 			showtime.setPrice(Integer.valueOf(price));
-			showtimeDao.saveAndFlush(showtime);
+			showtimeDAO.saveAndFlush(showtime);
 			
 			return "redirect:/editshowtime/{showtime_id}";
 		} catch (Exception e) {
@@ -136,9 +152,11 @@ public class ShowtimeController {
 			create = "true";
 			Showtime showtime = new Showtime();
 			String movie_id = request.getParameter("movie.movie_id");
-			Movie movie = movieDao.findIdMovie(Integer.valueOf(movie_id));
+			String room_id = request.getParameter("room.room_id");
+			Movie movie = movieDAO.findIdMovie(Integer.valueOf(movie_id));
+			Room room = roomDAO.findIdRoom(Integer.valueOf(room_id));
 			showtime.setMovie(movie);
-
+			showtime.setRoom(room);
 			// cap nhat ngay
 			String showdate = request.getParameter("showdate");
 			String pattern = "yyyy-MM-dd";
@@ -165,7 +183,7 @@ public class ShowtimeController {
 			String price = request.getParameter("price");
 			showtime.setPrice(Integer.valueOf(price));
 			
-			showtimeDao.saveAndFlush(showtime);
+			showtimeDAO.saveAndFlush(showtime);
 			
 			return "redirect:/showtime";
 		} catch (Exception e) {
@@ -174,6 +192,13 @@ public class ShowtimeController {
 			throw e;
 		}
 
+	}
+	
+	@PostMapping("/deleteShowtime/{showtime_id}")
+	public String deleteMovie(Model m, @PathVariable("showtime_id") int showtime_id) {
+		Showtime showtime = showtimeDAO.findIdShowtime(showtime_id);
+		showtimeDAO.delete(showtime);
+		return "redirect:/tablesshowtime";
 	}
 
 }
