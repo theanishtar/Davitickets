@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.io.InputStream;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -27,11 +29,9 @@ import com.davisys.dao.MovieDAO;
 import com.davisys.entity.Movie;
 import com.davisys.service.SessionService;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 @RequestMapping("/admin")
+@RolesAllowed("ROLE_ADMIN")
 public class MovieController {
 	@Autowired
 	private MovieDAO movieDAO;

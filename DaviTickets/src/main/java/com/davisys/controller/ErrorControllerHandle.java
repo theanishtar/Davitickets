@@ -21,13 +21,19 @@ public class ErrorControllerHandle implements ErrorController {
 		if (status != null) {
 			Integer statuscode = Integer.valueOf(status.toString());
 			if (statuscode == HttpStatus.NOT_FOUND.value()) {
-				return "error";
+				return "error/notfound";
 			}
 			if (statuscode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-				return "error";
+				return "error/server";
+			}
+			if(statuscode == HttpStatus.FORBIDDEN.value()) {
+				return "error/forbiden";
+			}
+			if(statuscode == HttpStatus.UNAUTHORIZED.value()) {
+				return "error/unauthorized";
 			}
 		}
-		return "error";
+		return "error/error";
 	}
 
 //	public String getErrorPath() {

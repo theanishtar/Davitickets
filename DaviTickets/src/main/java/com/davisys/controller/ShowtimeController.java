@@ -1,10 +1,12 @@
 package com.davisys.controller;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +24,9 @@ import com.davisys.entity.Room;
 import com.davisys.entity.Showtime;
 import com.davisys.service.SessionService;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 @RequestMapping("/admin")
+@RolesAllowed("ROLE_ADMIN")
 public class ShowtimeController {
 	@Autowired
 	ShowtimeDAO showtimeDAO;

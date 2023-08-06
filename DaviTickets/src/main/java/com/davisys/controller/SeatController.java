@@ -2,6 +2,9 @@ package com.davisys.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +17,9 @@ import com.davisys.dao.SeatDAO;
 import com.davisys.entity.Seat;
 import com.davisys.service.SessionService;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Controller
 @RequestMapping("/admin")
+@RolesAllowed("ROLE_ADMIN")
 public class SeatController {
 	@Autowired
 	SeatDAO seatDao;

@@ -1,23 +1,16 @@
 package com.davisys.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
+import javax.annotation.security.RolesAllowed;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import com.davisys.dao.MovieDAO;
-import com.davisys.entity.Movie;
 import com.davisys.service.ReportService;
 
-import javax.servlet.http.HttpServletResponse;
-
 @Controller
+@RolesAllowed("ROLE_ADMIN")
 public class ExportController {
 
 	@Autowired
