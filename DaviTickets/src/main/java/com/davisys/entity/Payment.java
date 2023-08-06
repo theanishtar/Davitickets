@@ -31,7 +31,7 @@ public class Payment implements Serializable{
 	@JoinColumn(name = "booking_id")
 	Booking booking;
 	
-	Integer toltal_amount;
+	Integer total_amount;
 	
 	@Temporal(TemporalType.DATE)
 	Date payment_date = new Date();

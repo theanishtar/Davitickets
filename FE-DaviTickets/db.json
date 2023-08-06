@@ -1,0 +1,34 @@
+{
+    "users" : [
+        {
+            "movie_id": "1",
+            "title_movie": "Quỷ Quyệt",
+            "release_date": "2023-07-28"
+        },
+        {
+            "movie_id": "2",
+            "title_movie": "Xứ Sở Các Nguyên Tố",
+            "release_date": "2023-07-28"
+        },
+        {
+            "movie_id": "3",
+            "title_movie": "Tay Đua Kiệt Xuất",
+            "release_date": "2023-07-29"
+        },
+        {
+            "movie_id": "4",
+            "title_movie": "Đảo Tử Thần",
+            "release_date": "2023-07-29"
+        },
+        {
+            "movie_id": "5",
+            "title_movie": "Bỗng Dưng Được Yêu",
+            "release_date": "2023-07-30"
+        },
+        {
+            "movie_id": "6",
+            "title_movie": "Ma Sơ Trục Quỷ",
+            "release_date": "2023-07-30"
+        }
+    ]
+}

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieTemp {
+	private int movie_id;
 	private String tile_movie;
 	private String poster;
 //	private List<Date> start_time;
