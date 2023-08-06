@@ -1,0 +1,113 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+      <a class="navbar-brand" href="/home">
+          DaviTicket
+      </a>
+
+      <a href="/listMovieBooking" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+              <li class="nav-item">
+                  <a class="nav-link" href="/home">Trang chủ</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/history">Lịch sử</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
+                <div class="dropdown-content">
+                    <a class="nav-link" href="/profile">Thông tin</a>
+                    <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
+                    <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
+                </div>
+              </li>
+          </ul>
+
+          <a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a>
+      </div>
+  </div>
+</nav>
+
+      <section class="section-booking section-padding">
+        <div class="wrapper">
+          <div class="side" id="ftco-nav">
+            <ul class="menu">
+              <li *ngFor="let item of dateList" (click)="getDataByDate(item.date)" class="nav-item">
+                <i class="zmdi zmdi-label-alt"></i> {{item.dayOfWeek}} <br> {{  item.date | date: 'dd/MM/yyyy' }}
+              </li>
+            </ul>
+          </div>
+          <div class="main-wrap">
+            <div class="main">
+              <div class="list">
+                <div class="content">
+                  <ul class="covers loaded">
+                      <div *ngFor="let item of items">
+                        <div class="card-movie card-sm mb-3">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-2">
+                                <!-- <div
+                                > -->
+                                  <img
+                                  src="{{item.poster}}"
+                                    alt="Poster"
+                                    class="rounded img-fluid"
+                                  />
+                                <!-- </div> -->
+                              </div>
+                              <div class="col-md-9">
+                                <h4 class="card-title mb-1 name">
+                                  <div class="film-title"
+                                  >
+                                  {{item.tile_movie}}
+                                  </div>
+                                </h4>
+    
+                                <p class="card-text small text-muted mb-0">
+                                  Thời lượng · {{item.duration}}' ·
+                                  <a
+                                    href=""
+                                    class="trailer"
+                                    >Trailer</a
+                                  >
+                                </p>
+    
+                                <div class="mt-2">
+                                  <div class="mb-1">
+                                    <label
+                                      class="small mb-2 font-weight-bold d-block"
+                                    >
+                                      2D Phụ Đề Việt
+                                    </label>
+                                    <div class="show-time"*ngFor="let time of item.start_time">
+                                        <a
+                                        
+                                          class="show-time-item"
+                                          rel="nofollow"
+                                          (click)="onclickChooseMovie(item.movie_id,time[1])"
+                                        >
+                                        <span class="time">{{time[0]}}</span>
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <hr style="color: black;">
+                      </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>

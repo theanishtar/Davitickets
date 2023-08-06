@@ -1,0 +1,211 @@
+<!-- <div id="toast"></div> -->
+<!-- <main style="background: #222222;"> -->
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="/home">
+      DaviTicket
+    </a>
+
+    <a href="list-movie-booking.html" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Trang chủ</a>
+        </li>
+        <!-- <li class="nav-item">
+                    <a class="nav-link" href="/history">Lịch sử</a>
+                  </li> -->
+        <li class="nav-item dropdown">
+          <span class="nav-link">Tài khoản <i class="fa-solid fa-chevron-down"></i></span>
+          <div class="dropdown-content">
+            <a class="nav-link dropdown" href="/login">Đăng nhập</a>
+            <a class="nav-link dropdown" href="/forgotpass">Quên mật khẩu</a>
+            <!-- <a class="nav-link" href="/home">Đăng xuất</a> -->
+          </div>
+        </li>
+      </ul>
+
+      <!-- <a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a> -->
+    </div>
+  </div>
+</nav>
+
+
+<!-- LOGIN FORM CREATION -->
+<section class="main-form">
+  <div class="background"></div>
+  <div *ngIf="checkForm==true" class="container-form">
+    <div class="login-section">
+      <div class="form-box login">
+        <form id="loginForm" [formGroup]="loginForm" (ngSubmit)="loginWithEmailAndPassword()" action="" novalidate>
+          <h2>Đăng nhập</h2>
+          <div class="input-box">
+            <input type="text" formControlName="email" id="email" required>
+            <label>Email</label>
+            <span
+              *ngIf="loginFormControl['email'].invalid && (loginFormControl['email'].dirty || loginFormControl['email'].touched || submitted)">
+              <div *ngIf="loginFormControl['email'].errors" style="color: red;">
+                <div *ngIf="loginFormControl['email'].errors['required']" style="color: red;">
+                  Vui lòng nhập email!
+                </div>
+                <div *ngIf="loginFormControl['email'].errors['email']" style="color: red;">
+                  Vui lòng nhập email đúng định dạng!
+                </div>
+              </div>
+            </span>
+          </div>
+
+          <div class="input-box" style="margin-bottom: 3rem;">
+            <span class="form-item-icon-eye hide-show-pass"> <i (click)="showHidePass()" class="fa-regular fa-eye"
+                id="eye"></i>
+            </span>
+            <input formControlName="password" name="password" type="password" id="passwordForm" required>
+            <label>Mật khẩu</label>
+            <span
+              *ngIf="loginFormControl['password'].invalid && (loginFormControl['password'].dirty || loginFormControl['password'].touched || submitted)">
+              <div *ngIf="loginFormControl['password'].errors" style="color: red;">
+                <div *ngIf="loginFormControl['password'].errors['required']" style="color: red;">
+                  Vui lòng nhập mật khẩu
+                </div>
+              </div>
+            </span>
+          </div>
+
+          <div class="remember-password">
+            <label for=""><input type="checkbox" (change)="bulk($event)">Duy trì đăng nhập</label>
+            <a href="/forgotpass">Quên mật khẩu</a>
+          </div>
+          <button class="btn-login" type="submit">Đăng nhập</button>
+          <hr>
+          
+          
+         <div class="login-gg">
+            <div class="text-center">
+              <div class="method-control">
+                <div id="g_id_onload" data-width="80" data-client_id="829042615252-9cgbgmdc55famceanr15b20dq3kns76m"
+                  data-ux_mode="redirect" data-callback="handleCredentialResponse"
+                  data-login_uri="http://localhost:8080/login/oauth"></div>
+                <div class="g_id_signin" data-type="standard"></div>
+              </div>
+            </div>
+           </div>
+          <div class="create-account">
+            <p>Bạn chưa có tài khoản? <a (click)="clickChangeForm()" class="register-link">Đăng ký</a></p>
+          </div>
+        </form>
+      </div>
+      <div class="form-box register">
+        <form id="registerForm" [formGroup]="registerForm" (ngSubmit)="register()" action="" novalidate>
+
+          <h2 style="margin-top: 15px;">Đăng ký</h2>
+
+          <div class="input-box">
+            <input type="text" formControlName="full_name" id="full_name" required>
+            <label>Họ tên</label>
+            <span
+              *ngIf="registerFormControl['full_name'].invalid && (registerFormControl['full_name'].dirty || registerFormControl['full_name'].touched || submitted)">
+              <div *ngIf="registerFormControl['full_name'].errors" style="color: red;">
+                <div *ngIf="registerFormControl['full_name'].errors['required']" style="color: red;">
+                  Vui lòng nhập họ tên
+                </div>
+              </div>
+            </span>
+          </div>
+          <div class="input-box">
+            <input type="text" name="phone" pattern="^(0\d{9})$" formControlName="phone" id="phone" required>
+            <label>Số điện thoại</label>
+            <span
+              *ngIf="registerFormControl['phone'].invalid && (registerFormControl['phone'].dirty || registerFormControl['phone'].touched || submitted)">
+              <div *ngIf="registerFormControl['phone'].errors" style="color: red;">
+                <div *ngIf="registerFormControl['phone'].errors['required']" style="color: red;">
+                  Vui lòng nhập số điện thoại
+                </div>
+                <div *ngIf="registerFormControl['phone'].errors['pattern']" style="color: red;">
+                  Vui lòng kiểm tra lại số điện thoại!
+                </div>
+              </div>
+
+            </span>
+          </div>
+          <div class="input-box">
+            <input type="text" formControlName="email" id="email" required>
+            <label>Email</label>
+            <span
+              *ngIf="registerFormControl['email'].invalid && (registerFormControl['email'].dirty || registerFormControl['email'].touched || submitted)">
+              <div *ngIf="registerFormControl['email'].errors" style="color: red;">
+                <div *ngIf="registerFormControl['email'].errors['required']" style="color: red;">
+                  Vui lòng nhập email!
+                </div>
+                <div *ngIf="registerFormControl['email'].errors['email']" style="color: red;">
+                  Vui lòng nhập email đúng định dạng!
+                </div>
+              </div>
+            </span>
+          </div>
+          <div class="input-box">
+            <input type="password" formControlName="password" id="password" required>
+            <label>Mật khẩu</label>
+            <span
+              *ngIf="registerFormControl['password'].invalid && (registerFormControl['password'].dirty || registerFormControl['password'].touched || submitted)">
+              <div *ngIf="registerFormControl['password'].errors" style="color: red;">
+                <div *ngIf="registerFormControl['password'].errors['required']" style="color: red;">
+                  Vui lòng nhập mật khẩu
+                </div>
+              </div>
+            </span>
+          </div>
+          <button class="btn-register" type="submit">Đăng ký</button>
+          <div class="create-account">
+            <p>Bạn đã có tài khoản? <a (click)="clickChangeForm()" class="login-link">Đăng nhập</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div  *ngIf="checkForm ==false" class="verification-form">
+    <div class="verification-card-container">
+      <div class="verification-card">
+        <div class="verification-card-logo">
+          DaviTicket
+        </div>
+        <div class="verification-card-header">
+          <h1>Mã xác nhận</h1>
+          <div>Vui lòng kiểm tra email để nhận mã</div>
+        </div>
+        <form class="verification-card-form" id="verificationForm" [formGroup]="verificationForm" (ngSubmit)="checkCodeMail()" action="" novalidate>
+          <div class="form-item">
+            <span class="form-item-icon material-symbols-rounded">
+              <i class="fa-solid fa-key" style="padding-top: 10px;"></i>
+            </span>
+            <input type="text" formControlName="maxn" placeholder="Nhập mã" id="verificationForm" required>
+          </div>
+          <button type="submit">Xác nhận</button>
+        </form>
+      </div>
+      <div class="verification-card-footer">
+        Bạn muốn quay lại? <a href="">Đăng nhập</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("log-ggas").onclick = function()
+    {
+     alert("hello");
+     //validation code to see State field is mandatory.  
+    }  
+    
+    function a(){
+      alert(5678)
+    }
+  </script>
+</section>
+<!-- </main> -->
