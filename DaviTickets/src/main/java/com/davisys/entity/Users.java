@@ -1,6 +1,7 @@
 package com.davisys.entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -99,7 +100,6 @@ public class Users implements UserDetails {
 	}
 
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return this.getUser_name();
 	}
 
@@ -146,6 +146,10 @@ public class Users implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public boolean isUser() {
+		return !Arrays.asList(this.getAuth()).contains("ADMIN");
 	}
 
 }

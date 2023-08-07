@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="davisy-demo-jwt">
-                
-        <wb-resource deploy-path="/" source-path="/src/main/java"/>
-                
-        <wb-resource deploy-path="/" source-path="/src/main/resources"/>
-                
-        <wb-resource deploy-path="/" source-path="/target/generated-sources/annotations"/>
             
-    </wb-module>
     
+    <wb-module deploy-name="Davitickets-server">
+                        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/java"/>
+                        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/resources"/>
+                        
+        
+        <wb-resource deploy-path="/" source-path="/target/generated-sources/annotations"/>
+                    
+    
+    </wb-module>
+        
+
 </project-modules>

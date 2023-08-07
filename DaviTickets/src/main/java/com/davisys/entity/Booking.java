@@ -53,5 +53,9 @@ public class Booking implements Serializable {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "booking")
 	List<Payment> payment;
+	public int getUserID() {
+		return this.users.getUserid();
+	}
+
 
 }

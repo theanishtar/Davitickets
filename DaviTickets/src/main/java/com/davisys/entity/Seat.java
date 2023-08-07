@@ -27,7 +27,7 @@ public class Seat implements Serializable{
     Integer seat_id;
 	
 	Boolean vip;
-	String row_symboll;
+	String row_symbol;
 	Integer seat_num;
 	Boolean available;
 	
