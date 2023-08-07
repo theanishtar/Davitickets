@@ -11,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.davisys.constant.SessionAttribute;
 import com.davisys.dao.PaymentDAO;
 import com.davisys.dao.ShowtimeDAO;
 import com.davisys.dao.UserDAO;
+import com.davisys.entity.Users;
 import com.davisys.service.SessionService;
 
 @Controller
@@ -35,7 +37,8 @@ public class AdminController {
 	
 	@GetMapping("")
 	public String index(Model m) {
-		m.addAttribute("user", sessionService.get("user"));
+		Users user = sessionService.get(SessionAttribute.CURRENT_USER);
+		m.addAttribute("user", user);
 		loadRevenueStatisticsDay(m);
 		loadRevenueStatisticsMonth(m);
 		loadPercent(m);

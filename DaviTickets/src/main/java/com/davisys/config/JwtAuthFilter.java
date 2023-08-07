@@ -56,9 +56,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		HttpSession sesion = request.getSession();
 		Users user = (Users) sesion.getAttribute(SessionAttribute.CURRENT_USER);
-		if (user == null) {
-			System.out.println("DONT LOGIN ADMIN");
-		} else {
+		if (user != null) {
 			System.out.println("ADMIN -> " + user.getEmail());
 
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -69,7 +67,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
 			System.out.println("SAVE INFOR ADMIN SUCCESS!!");
-		}
+			
+			chain.doFilter(request, response);
+			
+			return;
+		} 
 
 		final String header = request.getHeader("Authorization");
 
@@ -84,7 +86,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 				String username = decodedJWT.getSubject();
 				System.out.println("username: " + username);
-//                Users u = dao.findEmailUser(username);
 
 				String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
 				if (username != null) {
@@ -93,24 +94,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 						authorities.add(new SimpleGrantedAuthority(role));
 					});
 
-					// Xuất ra coi chơi
-					System.out.println("Xuất ra coi chơi");
 					authorities.forEach(authority -> System.out.println(authority.getAuthority()));
 
-					System.out.println("2");
 					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 							username, null, authorities);
-					System.out.println("3");
 
 					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 					// Đưa thông tin xác thực vào SecurityContextHolder
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-					System.out.println("4");
 					chain.doFilter(request, response);
 
-					System.out.println("5");
 					return;
 				}
 			} catch (Exception e) {

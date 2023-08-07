@@ -47,7 +47,6 @@ public class GGCloud {
 	public String login(Model m) {
 		try {
 			 System.out.println("s: "+httpServletRequest.getParameter("credential"));
-			StatusLogin statusLogin = new StatusLogin();
 			String token = httpServletRequest.getParameter("credential");
 			String[] chunks = token.split("\\.");
 

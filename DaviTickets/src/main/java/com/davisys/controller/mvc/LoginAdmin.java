@@ -38,10 +38,10 @@ public class LoginAdmin {
 	CookieService cookieService;
 
 	@Autowired
-SessionService sessionService;
+	SessionService sessionService;
 	@Autowired
 	UserDAO dao;
-	
+
 	@Autowired
 	PasswordEncoder encoder;
 
@@ -53,7 +53,7 @@ SessionService sessionService;
 		if (user != null && encoder.matches(authenticationRequest.getPassword(), user.getPassword())) {
 			boolean isAdmin = Arrays.asList(user.getAuth()).contains("ADMIN");
 			System.out.println(Arrays.asList(user.getAuth()));
-			if(isAdmin) {
+			if (isAdmin) {
 				System.out.println("IS ADMIN -> SET SESSION");
 				sessionService.set("user", user);
 				model.addAttribute("user", user);
@@ -63,33 +63,35 @@ SessionService sessionService;
 		}
 		return "oauth/index";
 	}
-	
-	//oauth/admin/rec/{email}/{password}
-	@GetMapping("/rec/{email}/{password}")
-	public String recToHome(@PathVariable("email") String email,
-            @PathVariable("password") String password,
-            HttpServletResponse response) {
 
-		System.out.println("REC: "+email+password);
+	// oauth/admin/rec/{email}/{password}
+	@GetMapping("/rec/{email}/{password}")
+	public String recToHome(@PathVariable("email") String email, @PathVariable("password") String password,
+			HttpServletResponse response) {
+
+		System.out.println("REC: " + email + password);
 		Users user = dao.findEmailUser(email);
 		if (user != null && encoder.matches(password, user.getPassword())) {
 			boolean isAdmin = Arrays.asList(user.getAuth()).contains("ADMIN");
 			System.out.println(Arrays.asList(user.getAuth()));
-			if(isAdmin) {
+			if (isAdmin) {
 				System.out.println("IS ADMIN -> SET SESSION");
 				sessionService.set(SessionAttribute.CURRENT_USER, user);
-				
+
 			} else {
 				System.out.println("IS USER -> DONT SET SESSION");
 			}
 		}
 		Cookie cookie = new Cookie("JSESSIONID", "");
-        // Đặt ngày hết hạn là 0, tức là giá trị ở quá khứ
-        cookie.setMaxAge(0);
-        // Đặt domain, path, secure, httponly nếu cần
-        // ...
-        // Thêm cookie vào response
-        response.addCookie(cookie);
+		Cookie cookie2 = new Cookie("jsessionid", "");
+		// Đặt ngày hết hạn là 0, tức là giá trị ở quá khứ
+		cookie.setMaxAge(0);
+		cookie2.setMaxAge(0);
+		// Đặt domain, path, secure, httponly nếu cần
+		// ...
+		// Thêm cookie vào response
+		response.addCookie(cookie);
+		response.addCookie(cookie2);
 		return "redirect:/admin";
 	}
 
