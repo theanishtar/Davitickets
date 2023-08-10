@@ -1,0 +1,135 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/home">
+            DaviTicket
+        </a>
+
+        <a href="/listMovieBooking" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/history">Lịch sử</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
+                    <div class="dropdown-content">
+                        <a class="nav-link" (click)="loadDataProfile()">Thông tin</a>
+                        <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
+                        <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+
+            <a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a>
+        </div>
+    </div>
+</nav>
+<div class="main_content">
+    <div class="containers">
+        <div class="title">Thông tin tài khoản</div>
+        <div class="content" *ngFor="let item of profile">
+            <form id="profileForm" [formGroup]="profileForm" (ngSubmit)="updateProfile()" action="" novalidate>
+                <div class="user-details">
+                    <div class="row" style="width: 100%;">
+                        <div class="col-md-6 input-box">
+                            <label class="upload-image">
+                                <input type="file" class="file" (change)="chooseFile($event)" style="display: none;">
+                                <img class="profile-picture" src="{{item.pic}}" #uploadPreview id="uploadPreview"
+                                    width="250px">
+                                <input type="text" formControlName="pic" [(ngModel)]="avatar" id="avatar"
+                                    style="display: none;">
+                            </label>
+                        </div>
+                        <div class="col-md-6 ">
+                            <div class="input-box" style="width: 100%;">
+                                <span class="details">Họ và tên</span>
+                                <input formControlName="fullname" value="" [(ngModel)]="item.fullname" id="fullname"
+                                    type="text" required>
+                                <span
+                                    *ngIf="profileForm.get('fullname')?.invalid && profileForm.get('fullname')?.touched">
+                                    <div style="color: red;">
+                                        Vui lòng nhập họ tên!
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="input-box" style="width: 100%;">
+                                <span class="details">Email</span>
+                                <input formControlName="email" id="email" type="text" [(ngModel)]="item.email" readonly>
+                                <span *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+                                    <div style="color: red;">
+                                        Vui lòng kiểm tra email!
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Số điện thoại</span>
+                        <input type="text" formControlName="phone" id="phone" [(ngModel)]="item.phone" required>
+                        <span
+                            *ngIf="profileFormControl['phone'].invalid && (profileFormControl['phone'].dirty || profileFormControl['phone'].touched || submitted)">
+                            <div *ngIf="profileFormControl['phone'].errors" style="color: red;">
+                                <div *ngIf="profileFormControl['phone'].errors['required']" style="color: red;">
+                                    Vui lòng nhập số điện thoại
+                                </div>
+                                <div *ngIf="profileFormControl['phone'].errors['pattern']" style="color: red;">
+                                    Vui lòng kiểm tra lại số điện thoại!
+                                </div>
+                            </div>
+
+                        </span>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Mật khẩu</span>
+                        <input type="password" formControlName="password" id="password" [(ngModel)]="item.password"
+                            readonly>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Ngày sinh</span>
+                        <input type="date" formControlName="birtday" id="birtday" [(ngModel)]="item.birtday" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Giới tính</span>
+                        <div class="category">
+                            <label for="dot-1">
+                                <input type="radio" formControlName="gender" [(ngModel)]="item.gender"
+                                    [checked]="item.gender == 'Nam'" id="dot-1" value="Nam">
+                                <span class="gender">Nam</span>
+                            </label>
+                            <label for="dot-2">
+                                <input type="radio" formControlName="gender" [(ngModel)]="item.gender"
+                                    [checked]="item.gender == 'Nữ' ? 'checked' : ''" id="dot-2" value="Nữ">
+                                <span class="gender">Nữ</span>
+                            </label>
+                            <label for="dot-3">
+                                <input type="radio" formControlName="gender" [(ngModel)]="item.gender"
+                                    [checked]="item.gender == 'Khác'" id="dot-3" value="Khác">
+                                <span class="gender">Khác</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="display: flex;">
+                    <div class="field button-field col-md-6">
+                        <button type="submit">Xác nhận</button>
+                    </div>
+                    <!-- <div class="field button-field col-md-6">
+                        <button>Hủy</button>
+                    </div> -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

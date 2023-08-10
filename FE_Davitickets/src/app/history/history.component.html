@@ -1,0 +1,295 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="/home">
+            DaviTicket
+        </a>
+
+        <a href="/listMovieBooking" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/history">Lịch sử</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
+                    <div class="dropdown-content">
+                        <a class="nav-link" (click)="loadDataProfile()">Thông tin</a>
+                        <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
+                        <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+
+            <a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a>
+        </div>
+    </div>
+</nav>
+
+<section class="main-history">
+    <div class="wrapper rounded" style="width: 100%;">
+        <!-- <nav class="navbar navbar-expand-lg navbar-dark dark d-lg-flex align-items-lg-start"> <a class="navbar-brand"
+                href="#">Transactions <p class="text-muted pl-1">Welcome to your transactions</p> </a> <button
+                class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span
+                    class="navbar-toggler-icon"></span> </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item"> <a class="nav-link" href="#"><span
+                                class="fa fa-bell-o font-weight-bold"></span> <span class="notify">Notifications</span>
+                        </a> </li>
+                    <li class="nav-item "> <a href="#"><span class="fa fa-search"></span></a> <input type="search"
+                            class="dark" placeholder="Search"> </li>
+                </ul>
+            </div>
+        </nav> -->
+        <div class="row mt-2 pt-2">
+            <div class="col-md-6" id="income">
+                <!-- <div class="d-flex justify-content-start align-items-center">
+                    <p class="fa fa-long-arrow-down"></p>
+                    <p class="text mx-3">Income</p>
+                    <p class="text-white ml-4 money">$9,758.23</p>
+                </div> -->
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-md-end align-items-center">
+                    <div class="fa-solid fa-money-bill"></div>
+                    <div class="text mx-3">Tổng</div>
+                    <div class="text-white ml-4 money">200000 đ</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="d-flex justify-content-between align-items-center mt-3">
+            <ul class="nav nav-tabs w-75">
+                <li class="nav-item"> <a class="nav-link active" href="#history">History</a> </li>
+                <li class="nav-item"> <a class="nav-link" href="#">Reports</a> </li>
+            </ul> <button class="btn btn-primary">New Transaction</button>
+        </div> -->
+        <div class="card shadow mb-4 mt-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-warning">Lịch sử giao dịch</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table rwd-table" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Tên phim</th>
+                                <th>Rạp</th>
+                                <th>Thời lượng</th>
+                                <th>Ngày chiếu</th>
+                                <th>Thời gian</th>
+                                <th>Giá vé</th>
+                                <!-- <th></th> -->
+                            </tr>
+                        </thead>
+                        <!-- <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                                <th></th>
+                            </tr>
+                        </tfoot> -->
+                        <tbody>
+                            <tr *ngFor="let item of items">
+                                <td data-th="name">{{item[0]}}</td>
+                                <td data-th="name">{{item[1]}}</td>
+                                <td data-th="name">{{item[2]}} phút</td>
+                                <td data-th="name">{{item[3]}}</td>                   
+                                <td data-th="name">{{item[4]}} ~ {{item[5]}}</td>
+                                <td data-th="name">{{item[6]}}</td>
+                                <!-- <td data-th="Edit"><a data-bs-toggle="modal" href="#exampleModalToggle">Xem</a></td> -->
+                            </tr>
+                              <!-- <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                          <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>8</td>
+                                <td>120 phút</td>
+                                <td>06/04/2023</td>                   
+                                <td>09:00 ~ 11:00</td>
+                                <td>320,800</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="d-flex justify-content-between align-items-center results"> <span class="pl-md-3">Showing<b
+                    class="text-white"> 1-7 0f 200 </b> trasactions</span>
+            <div class="pt-3">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item disabled"> <a class="page-link" href="#" aria-label="Previous"> <span
+                                    aria-hidden="true">&lt;</span> </a> </li>
+                        <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span
+                                    aria-hidden="true">&gt;</span> </a> </li>
+                    </ul>
+                </nav>
+            </div>
+        </div> -->
+    </div>
+ </section>
+
+ <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+ tabindex="-1">
+ <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title" id="exampleModalToggleLabel">Vé của bạn</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+         </div>
+         <div class="modal-body" style="display: flex;justify-content: center;">
+             <div class="m-ticket">
+
+                 <p class="m">DaviTicket</p>
+
+                 <div class="movie-details">
+                     <img src="https://pbs.twimg.com/media/FshgstvakAA5sE7.jpg" class="poster">
+
+                     <div class="movie">
+                         <h4>Jawan (U/A)</h4>
+
+                         <p>Hindi, 2D</p>
+                         <p>Thứ 2, 17/07/2023 | 07:45 PM</p>
+                         <p>INOX Eros One: Jangpura Extn</p>
+                     </div>
+
+                 </div>
+
+                 <div class="info">
+                     Thông tin chi tiết
+                 </div>
+
+                 <div class="ticket-details">
+                     <img src="https://pngimg.com/uploads/qr_code/qr_code_PNG2.png" class="scan">
+
+                     <div class="ticket">
+                         <p>3 vé</p>
+
+                         <b>Rạp 1</b>
+
+                         <p>G1, G2, G3</p>
+
+                         <h6>BOOKING ID: Tbafeq7</h6>
+
+                     </div>
+
+                 </div>
+
+                 <div class="info-cancel">
+                     Hãy liên hệ ngay với chung tôi nếu có sai sót !!!
+                 </div>
+
+                 <div class="total-amount">
+                     <p>Tổng</p>
+
+                     <p>500000đ</p>
+                 </div>
+
+             </div><!---m-ticket end---->
+         </div>
+         <div class="modal-footer">
+
+         </div>
+     </div>
+ </div>
+</div>
