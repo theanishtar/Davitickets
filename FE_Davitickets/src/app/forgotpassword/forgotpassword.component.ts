@@ -129,7 +129,6 @@ export class ForgotpasswordComponent {
   }
 
   changePass() {
-    alert(1)
     // if(this.changePassForm.valid){
       this.forgotpasswordService.changePassword(this.changePassForm.value).subscribe((res)=>{
         function delay(ms: number) {
@@ -137,7 +136,6 @@ export class ForgotpasswordComponent {
             setTimeout(resolve, ms);
           });
         }
-       alert(2)
           new toast({
             title: 'Thành công!',
             message: 'Cập nhật mật khẩu thành công!',

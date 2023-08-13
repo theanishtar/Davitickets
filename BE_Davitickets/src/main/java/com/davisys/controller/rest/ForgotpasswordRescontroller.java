@@ -1,5 +1,7 @@
 package com.davisys.controller.rest;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,20 +26,20 @@ public class ForgotpasswordRescontroller {
 	private Users user = new Users();
 	@Autowired
 	MailerServiceImpl mailer;
-	
+
 	@Autowired
-    private PasswordEncoder passwordEncoder;
-	
+	private PasswordEncoder passwordEncoder;
+
 	@Autowired
 	JwtTokenUtil jwtTokenUtil;
 	int checkCount = 0;
 	static String codeMail = "";
 
-	@PostMapping("/rest/forgotpassword")
+	@PostMapping("/oauth/forgotpassword")
 	public ResponseEntity<StatusLogin> forgotpass(@RequestBody String email) throws Exception {
 		try {
 //			checkCount = 0;
-			 codeMail = "";
+			codeMail = "";
 			StatusLogin statusLogin = new StatusLogin();
 			statusLogin.setRole(true);
 			statusLogin.setUser(null);
@@ -66,7 +68,7 @@ public class ForgotpasswordRescontroller {
 
 	}
 
-	@PostMapping("/rest/checkForgotpassword")
+	@PostMapping("/oauth/checkForgotpassword")
 	public ResponseEntity<StatusLogin> checkValidCode(@RequestBody String code) {
 		try {
 			StatusLogin statusLogin = new StatusLogin();
@@ -94,7 +96,8 @@ public class ForgotpasswordRescontroller {
 		}
 	}
 
-	@PostMapping("/rest/changePassword")
+	@RolesAllowed("ROLE_USER")
+	@PostMapping("/user/changePassword")
 	public ResponseEntity<StatusLogin> changePassword(@RequestBody String newPass) throws Exception {
 		try {
 			ObjectMapper mapper = new ObjectMapper();

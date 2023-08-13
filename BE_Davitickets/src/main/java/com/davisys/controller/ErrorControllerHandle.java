@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+
 public class ErrorControllerHandle implements ErrorController {
 	@Autowired
 	private HttpServletRequest request;

@@ -15,9 +15,11 @@ import com.davisys.dao.MovieDAO;
 import com.davisys.entity.Movie;
 import com.davisys.service.ReportService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@RolesAllowed("ROLE_ADMIN")
 public class ExportController {
 
 	@Autowired

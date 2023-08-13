@@ -11,6 +11,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import '../../assets/toast/main.js';
+import { error } from 'jquery';
 declare var toast: any;
 @Component({
   selector: 'app-changepassword',
@@ -49,15 +50,25 @@ export class ChangepasswordComponent {
   }
   updatePass(){
     this.submitted = true;
-    if (this.changePasswordForm.get("newPass").value == this.changePasswordForm.get("reNewPass").value) {
-        this.profileService.updatePassoword(this.changePasswordForm.get("newPass").value).subscribe((res) => {
-          new toast({
+    if (this.changePasswordForm.get("newPass").value == this.changePasswordForm.get("reNewPass").value ) {
+        this.profileService.updatePassoword(this.changePasswordForm.value).subscribe((res) => {
+          if(res =="success"){
+            new toast({
             title: 'Thành công!',
             message: 'Cập nhật thành công!',
             type: 'success',
             duration: 2000,
           });
-        });
+          }else{
+            new toast({
+            title: 'Thất bại!',
+            message: 'Mật khẩu cũ không trùng khớp!',
+            type: 'warning',
+            duration: 2000,
+          });
+          }
+          
+        })
       }else{
         new toast({
           title: 'Thất bại!',

@@ -1,6 +1,7 @@
 package com.davisys.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,13 +50,19 @@ public class Booking implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	Date booking_date = new Date();
+	Date booking_time = new Date();
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "booking")
 	List<Payment> payment;
+
 	public int getUserID() {
 		return this.users.getUserid();
 	}
 
+	public String getBookingTime() {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		return sdf.format(this.booking_time);
+	}
 
 }

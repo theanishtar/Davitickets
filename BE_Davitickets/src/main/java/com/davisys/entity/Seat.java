@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,9 +29,15 @@ public class Seat implements Serializable{
     Integer seat_id;
 	
 	Boolean vip;
+	@ManyToOne
+	@JoinColumn(name = "room_id")
+	Room room;
+	
 	String row_symbol;
 	Integer seat_num;
 	Boolean available;
+	
+
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "seat")

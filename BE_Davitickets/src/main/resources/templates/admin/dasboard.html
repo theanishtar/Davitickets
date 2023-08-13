@@ -8,6 +8,7 @@
 </head>
 
 <body>
+	<div id="toast"></div>
 	<div class="container-fluid">
 
 		<!-- Page Heading -->
@@ -30,7 +31,8 @@
 								<div
 									class="text-xs font-weight-bold text-primary text-uppercase mb-1">
 									Doanh thu (Hôm nay)</div>
-								<div class="h5 mb-0 font-weight-bold text-white" th:text="${revenueDay}"></div>
+								<div class="h5 mb-0 font-weight-bold text-white"
+									th:text="${revenueDay}"></div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -49,7 +51,8 @@
 								<div
 									class="text-xs font-weight-bold text-success text-uppercase mb-1">
 									Doanh thu (Tháng này)</div>
-								<div class="h5 mb-0 font-weight-bold text-white" th:text="${revenueMonth}"></div>
+								<div class="h5 mb-0 font-weight-bold text-white"
+									th:text="${revenueMonth}"></div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -70,13 +73,14 @@
 									thu hôm nay so với chỉ tiêu</div>
 								<div class="row no-gutters align-items-center">
 									<div class="col-auto">
-										<div class="h5 mb-0 mr-3 font-weight-bold text-white" th:text="${percent}+'%'"></div>
+										<div class="h5 mb-0 mr-3 font-weight-bold text-white"
+											th:text="${percent}+'%'"></div>
 									</div>
 									<div class="col">
 										<div class="progress progress-sm mr-2">
 											<div class="progress-bar bg-info" role="progressbar"
-												th:styleappend="|width: ${percent} %|" aria-valuenow="50" aria-valuemin="0"
-												aria-valuemax="100"></div>
+												th:styleappend="|width: ${percent} %|" aria-valuenow="50"
+												aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
 									</div>
 								</div>
@@ -98,7 +102,8 @@
 								<div
 									class="text-xs font-weight-bold text-warning text-uppercase mb-1">
 									Tổng số người dùng mới</div>
-								<div class="h5 mb-0 font-weight-bold text-white" th:text="${userStatisticsMonth}"></div>
+								<div class="h5 mb-0 font-weight-bold text-white"
+									th:text="${userStatisticsMonth}"></div>
 							</div>
 							<div class="col-auto">
 								<i class="fas fa-users fa-2x text-gray-300"></i>
@@ -153,7 +158,8 @@
 					<!-- Card Header - Dropdown -->
 					<div
 						class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						<h6 class="m-0 font-weight-bold text-warning">Top 3 Khung giờ được xem phim nhiều nhất</h6>
+						<h6 class="m-0 font-weight-bold text-warning">Top 3 Khung giờ
+							được xem phim nhiều nhất</h6>
 						<div class="dropdown no-arrow">
 							<a class="dropdown-toggle" href="#" role="button"
 								id="dropdownMenuLink" data-toggle="dropdown"
@@ -191,27 +197,55 @@
 		</div>
 
 	</div>
-	
+	<input type="text" id="alert" class="text-muted mb-0"
+		th:value="${alert}" style="display: none">
 
 	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Đăng xuất</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">Bạn có muốn đăng xuất ?</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Hủy</button>
-						<a class="btn btn-primary" th:href="@{/admin/logout}">Đăng xuất</a>
-					</div>
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Đăng xuất</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
 				</div>
+				<div class="modal-body">Bạn có muốn đăng xuất ?</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Hủy</button>
+					<a class="btn btn-primary" th:href="@{/admin/logout}">Đăng xuất</a>
+				</div>
+			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		var alert = document.getElementById("alert");
+		if (alert.value == "updateSuccess") {
+			toast({
+				title : "Thành công!",
+				message : "Đổi mật khẩu thành công!",
+				type : "success",
+				duration : 10000
+			});
+		}
+		if (alert.value == "passwordFail") {
+			toast({
+				title : "Thất bại!",
+				message : "Mật khẩu cũ không đúng",
+				type : "success",
+				duration : 10000
+			});
+		}
+		if (alert.value == "updateFail") {
+			toast({
+				title : "Thất bại!",
+				message : "Mật khẩu mới và mật khẩu xác nhận không trùng khớp!",
+				type : "error",
+				duration : 10000
+			});
+		}
+	</script>
 </body>
 </html>

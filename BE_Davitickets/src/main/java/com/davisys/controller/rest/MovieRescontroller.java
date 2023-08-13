@@ -155,7 +155,7 @@ public class MovieRescontroller {
 			detail.setMovie(movie);
 			detail.setShowtime(showtime);
 			detail.setBookings(bookingDAO.findBookingShowtime(showtime.getShowtime_id()));
-			detail.setSeats(seatDAO.findAll());
+			detail.setSeats(seatDAO.getListSeatByRoom(showtime.getRoom().getRoom_id()));
 			detail.setCountSeat(seat);
 			List<Booking> booking = bookingDAO.findBookingShowtime(showtime.getShowtime_id());
 			return ResponseEntity.status(200).body(detail);
@@ -183,8 +183,9 @@ public class MovieRescontroller {
 			int height = 200; // Adjust the desired height of the QR code
 			Date date = new Date();
 			String data = "{\"userid\": " + userId + "}";
+			dataPayment.setQrCodeGeneratorService(null);
 //			qrCodeGeneratorService.generateQrCodeImage(data, width, height);
-			dataPayment.setQrCodeGeneratorService(qrCodeGeneratorService.generateQrCodeImage(data, width, height));
+//			dataPayment.setQrCodeGeneratorService(qrCodeGeneratorService.generateQrCodeImage(data, width, height));
 			return ResponseEntity.status(200).body(dataPayment);
 		} catch (Exception e) {
 			System.out.println("error booking: " + e);
@@ -203,6 +204,7 @@ public class MovieRescontroller {
 			bookingPayment.setShowtimeId(bp.getShowtimeId());
 			bookingPayment.setUserEmail(email);
 			bookingPayment.setQrCode(bp.getQrCode());
+//			
 
 //			System.out.println("error booking: " + amount);
 			String baseUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();

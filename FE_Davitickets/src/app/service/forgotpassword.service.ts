@@ -7,9 +7,9 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class ForgotpasswordService {
-  private userURL = 'http://localhost:8080/rest/forgotpassword';
-  private userURLCheckCode = 'http://localhost:8080/rest/checkForgotpassword';
-  private userURLChangePassword = 'http://localhost:8080/rest/changePassword';
+  private userURL = 'http://localhost:8080/oauth/forgotpassword';
+  private userURLCheckCode = 'http://localhost:8080/oauth/checkForgotpassword';
+  private userURLChangePassword = 'http://localhost:8080/user/changePassword';
 
   sendMail(data: any) {
     // return this.http.post(this.userURL, data);

@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DataBooking {
-	private String userEmail;
 	private int idMovie;
 	private int idShowTime;
-//	private int countSeat;
-//	private String cookie;
 }

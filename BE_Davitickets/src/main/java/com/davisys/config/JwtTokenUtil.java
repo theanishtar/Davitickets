@@ -31,8 +31,8 @@ public class JwtTokenUtil implements Serializable {
 	public String getEmailFromHeader(HttpServletRequest request) {
 		try {
 			String header = request.getHeader(headerAuth);
-			//String token = header.substring(7);
-			String token = header;
+			String token = header.substring(7);
+			//String token = header;
 			System.out.println(token);
 			
 			Algorithm algorithm = Algorithm.HMAC256(secret.getBytes());

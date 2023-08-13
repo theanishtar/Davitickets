@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.davisys.dao.RoomDAO;
 import com.davisys.dao.SeatDAO;
+import com.davisys.entity.Room;
 import com.davisys.entity.Seat;
 import com.davisys.service.SessionService;
 
@@ -26,20 +28,27 @@ public class SeatController {
 	@Autowired
 	HttpServletRequest request;
 	@Autowired
+	RoomDAO roomDAO;
+	@Autowired
 	SessionService sessionService;
 	String alert = "";
 	String daviSeat = "https://firebasestorage.googleapis.com/v0/b/davitickets-2e627.appspot.com/o/daviseat.png?alt=media&token=f04558c5-927c-46b5-a7ab-379411e4a3e20";
-
+	int idRoom = 1;
+	
+	
 	@GetMapping("/tablesseat")
 	public String tablesseat(Model m) {
 		testLoadData(m);
+		List<Room> listRoom = roomDAO.findAll();
+		m.addAttribute("listRoom", listRoom);
 		m.addAttribute("activeseat", "active");
+		m.addAttribute("roomid", idRoom);
 		m.addAttribute("alert", alert);
 		return "admin/tablesseat";
 	}
 
 	public void testLoadData(Model model) {
-		List<Seat> listSeat = seatDao.findAll();
+		List<Seat> listSeat = seatDao.getListSeatByRoom(idRoom);
 		model.addAttribute("listSeat", listSeat);
 	}
 
@@ -77,34 +86,33 @@ public class SeatController {
 
 	@PostMapping("/disableSeat/{seat_id}")
 	public String disableSeat(Model m, @PathVariable("seat_id") int seat_id) {
-		try {
-			alert = "disableSuccess";
-			Seat seat = seatDao.findIdSeats(seat_id);
-			seat.setAvailable(false);
-
-			seatDao.saveAndFlush(seat);
-			return "redirect:/admin/tablesseat";
-		} catch (Exception e) {
-			System.out.println("errr: " + e);
-			alert = "disableFail";
-			throw e;
-		}
-
+		alert = "disableSuccess";
+		String action = "disable";
+		getActionSeat(m, seat_id, action);
+		return "redirect:/admin/tablesseat";
 	}
 
 	@PostMapping("/activeSeat/{seat_id}")
 	public String activeSeat(Model m, @PathVariable("seat_id") int seat_id) {
+		alert = "activeSuccess";
+		String action = "active";
+		getActionSeat(m, seat_id, action);
+		return "redirect:/admin/tablesseat";
+	}
+
+	public void getActionSeat(Model m, int seat_id, String action) {
 		try {
-			alert = "activeSuccess";
 			Seat seat = seatDao.findIdSeats(seat_id);
-			seat.setAvailable(true);
+			idRoom = roomDAO.findIdRoomByIdSeat(seat_id);
+			if (action.equals("disable")) {
+				seat.setAvailable(false);
+			} else {
+				seat.setAvailable(true);
+			}
 			seatDao.saveAndFlush(seat);
-			return "redirect:/admin/tablesseat";
 		} catch (Exception e) {
 			System.out.println("errr: " + e);
-			alert = "activeFail";
 			throw e;
 		}
 	}
-
 }

@@ -5,6 +5,7 @@
 <title>Davitickets</title>
 
 <link th:href="@{/css/admin.css}" rel="stylesheet">
+<link rel="icon" type="image/x-icon" th:href="@{/img/logo.png}" >
 <link th:href="@{/vendor/fontawesome-free/css/all.min.css}"
 	rel="stylesheet" type="text/css">
 <link
@@ -356,6 +357,9 @@ p.text.seat-name {
 									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
 									Thông tin các nhân
 								</a>
+								<a class="dropdown-item" th:href="@{/admin/changepassword}"> <i
+						class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Đổi mật khẩu
+					</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
@@ -376,6 +380,8 @@ p.text.seat-name {
 					<h1 class="h3 mb-2 text-light">Quản lý ghế</h1>
 					<input type="text" id="alert" class="text-muted mb-0"
 						th:value="${alert}" style="display: none">
+
+
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4 mt-4">
 						<div class="">
@@ -396,14 +402,28 @@ p.text.seat-name {
 										<div class="seat notselected"></div> <small>Không thể
 											chọn</small>
 									</li>
+									<li></li>
+									<li>
+										<div class="row">
+											<div class="col-sm-12">
+												<select class="text-muted mb-0" th:onchange="loadSeat(this.value)" id="roomid" th:name="roomid" required> 
+													<option th:each="listRoom : ${listRoom}"
+														th:value="${listRoom.room_id}"
+														th:text="${listRoom.room_name}"
+														th:selected="${listRoom.room_id == roomid}">
+													</option>
+												</select>
+											</div>
+										</div>
+									</li>
 								</ul>
 
-								<div class="container-booking">
+								<div class="container-booking" id="getseat">
 									<div class="row screen"></div>
 									<div class="row">
 										<div th:each="seat:${listSeat}" th:object="${seat}">
 											<div class="seat" th:if="*{row_symbol} == 'A'"
-												th:styleappend="*{seat_num} == '2' or *{seat_num} == '9' ? 'margin-right: 18px;' : ''"
+												th:styleappend="*{seat_num} == '2' or *{seat_num} == '9' ? 'margin-right: 18px;' :''"
 												th:classappend="*{vip} ? 'vip' : ''"
 												th:class="*{available} ? 'seat' : 'seat notselected'">
 												<a th:href="@{|/admin/editSeat/*{seat_id}|}"
@@ -411,7 +431,7 @@ p.text.seat-name {
 											</div>
 										</div>
 									</div>
-									<div class="row">
+									 <div class="row">
 										<div th:each="seat:${listSeat}" th:object="${seat}">
 											<div class="seat" th:if="*{row_symbol} == 'B'"
 												th:styleappend="*{seat_num} == '2' or *{seat_num} == '9' ? 'margin-right: 18px;' :''"
@@ -476,7 +496,7 @@ p.text.seat-name {
 													th:text="*{row_symbol} + *{seat_num}" class=""></a>
 											</div>
 										</div>
-									</div>
+									</div> 
 								</div>
 							</section>
 						</div>
@@ -538,6 +558,28 @@ p.text.seat-name {
 
 	<!-- Page level custom scripts -->
 	<script src="/js/demo/datatables-demo.js"></script>
+	
+	<script type="text/javascript">
+		function loadSeat(param) {
+			var cbtId = param;
+			console.log(param)
+			 $.ajax({
+				url : "/loadSeat",
+				type : "get",
+				data : {
+					cbt : cbtId
+				},
+				success : function(data) {
+					let districts = document.getElementById('getseat');
+					districts.innerHTML = data;
+				},
+				error : function(xhr) {
+					alert("error")
+				}
+
+			}); 
+		}
+	</script>
 
 	<script type="text/javascript">
 		var alert = document.getElementById("alert");

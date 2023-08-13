@@ -3,6 +3,7 @@ package com.davisys.controller.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.davisys.entity.Users;
 
 @RestController
 @CrossOrigin()
+@RolesAllowed("ROLE_USER")
 public class History {
 	@Autowired
 	UserDAO userDAO;

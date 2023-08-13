@@ -19,7 +19,7 @@ export class ProfileService {
 
   getProfile() {
     let headers = new HttpHeaders({
-      'Authorization': localStorage.getItem("token"),
+      'Authorization': "Bearer " + localStorage.getItem("token"),
       'Content-Type': 'application/json'
     });
     return this.http.get<any>(this.profileURL, {headers}).pipe(
@@ -35,7 +35,7 @@ export class ProfileService {
 
   updateProfile(data: any): Observable<any>{
     let headers = new HttpHeaders({
-          'Authorization': localStorage.getItem("token"),
+          'Authorization': "Bearer " + localStorage.getItem("token"),
           'Content-Type': 'application/json'
         });
     return this.http.post(this.updateProfileURL, data, {headers}).pipe(
@@ -46,7 +46,7 @@ export class ProfileService {
 
   updatePassoword(data: any): Observable<any>{
     let headers = new HttpHeaders({
-          'Authorization': localStorage.getItem("token"),
+          'Authorization': "Bearer " + localStorage.getItem("token"),
           'Content-Type': 'application/json'
         });
     return this.http.post(this.updatePasswordURL, data, {headers}).pipe(

@@ -28,4 +28,8 @@ public class Room {
 	@JsonIgnore
 	@OneToMany(mappedBy = "room")
 	List<Showtime> showtime;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "room")
+	List<Seat> seat;
 }

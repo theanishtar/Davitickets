@@ -279,9 +279,10 @@ body{
     max-width: 100%;
     position: relative;
 }
-button.btn-wGoogle {
+div.btn-wGoogle {
     background: white;
     color: black;
+    text-align: center;
 }
 i.fa-brands.fa-google {
     color: red;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.davisys.config.TestVNPAYConfig;
+import com.davisys.constant.SessionAttribute;
 import com.davisys.dao.MovieDAO;
 import com.davisys.dao.PaymentDAO;
 import com.davisys.dao.ShowtimeDAO;
@@ -121,8 +122,8 @@ public class AdminController {
 
 	@RequestMapping("/logout")
 	public String logout(Model m) {
-		
+		sessionService.set(SessionAttribute.CURRENT_USER, null);
 		return "redirect:" + "http://localhost:4200/home";
-	} 
+	}
 
 }

@@ -49,7 +49,7 @@
 }
 .seat.your {
   /* border: 1px solid #07A846; */
-  background: #ee5007 !important;
+  background: #037c87 !important;
   color: white !important;
 }
 .seat.vip {
@@ -57,10 +57,11 @@
   /* background: #07A846; */
 }
 .seat.notselected {
-  background-color: red;
+  background-color: rgba(189, 1, 1, 0.836);
 }
 .seat.selected {
   background-color: #6feaf6;
+  color: black;
 }
 
 .seat.occupied {

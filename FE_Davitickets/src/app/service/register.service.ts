@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class RegisterService {
-  private userURL = 'http://localhost:8080/rest/register';
-  private userLoginUrl='http://localhost:8080/rest/register_login';
-  private userCheckCodeMail="http://localhost:8080/rest/checkCodeMail";
+  private userURL = 'http://localhost:8080/user/register';
+  private userLoginUrl='http://localhost:8080/user/register_login';
+  private userCheckCodeMail="http://localhost:8080/user/checkCodeMail";
   registerUser(data: any) {
     // return this.http.post(this.userURL, data);
     return this.http.post<any>(this.userURL, data).pipe(

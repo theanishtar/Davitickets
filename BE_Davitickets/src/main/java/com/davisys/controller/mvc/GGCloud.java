@@ -1,6 +1,9 @@
 package com.davisys.controller.mvc;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,14 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.davisys.constant.SessionAttribute;
 import com.davisys.dao.RoleDAO;
 import com.davisys.dao.UserDAO;
 import com.davisys.encrypt.AES;
 import com.davisys.entity.Roles;
 import com.davisys.entity.StatusLogin;
 import com.davisys.entity.Users;
-import com.davisys.service.SessionService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,9 +30,6 @@ public class GGCloud {
 
 	@Autowired
 	HttpServletRequest httpServletRequest;
-
-	@Autowired
-	SessionService sessionService;
 
 	@GetMapping("tohome")
 	public String redec(Model m) {
@@ -86,23 +84,23 @@ public class GGCloud {
 			user.setProfile_picture(usgc.get("picture").asText());
 			user.setAccount_status(true);
 			user.setProcessed_by(true);
-			user.setUser_birtday(null);
-			user.setGg_id(usgc.get("sub").asText());
+			
+			String pattern = "yyyy-MM-dd";
+			DateFormat dateFormat = new SimpleDateFormat(pattern);
+			Date birthdayDate = dateFormat.parse("2000-1-1");
+			user.setUser_birtday(birthdayDate);
+
 			user.setGg_id(usgc.get("sub").asText());
 			if (checkUser == null) {
 				// user.setUser_role(false);
 				Roles role = roleDAO.findById(2).orElseThrow();
 				role.setName(role.getName());
 				role.setRole_des(role.getRole_des());
+//				user.getRoles().s;
 				user.getRoles().add(role);
 				userDAO.save(user);
 			} else {
-				if (checkUser.isUser() == false) {
-					System.out.println("LOG GG is Admin: "+user.getFull_name());
-					sessionService.set(SessionAttribute.CURRENT_USER, checkUser);
-					return "redirect:/admin";
-				}
-
+				System.out.println("CO trong DB");
 			}
 
 			String emailEnc = aes.EncryptAESfinal(user.getEmail());
@@ -111,8 +109,7 @@ public class GGCloud {
 			m.addAttribute("dataEnc", emailEnc);
 			m.addAttribute("email", user.getEmail());
 
-//				return ResponseEntity.status(200).body(statusLogin);
-
+//			return ResponseEntity.status(200).body(statusLogin);
 			return "oauth/login";
 
 		} catch (Exception e) {

@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
 
 //Xử lí bất đồng bộ
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -17,62 +17,66 @@ declare var toast: any;
 })
 export class LoginService {
   private userURL = 'http://localhost:8080/oauth/login';
-  // private userURLGG = 'http://localhost:8080/rest/loginWithGG';
   private userCheckCodeMail = 'http://localhost:8080/rest/checkCodeMail';
-  // private userLoginWithGG = "http://localhost:8080/login/oauth/authenticated";
   private userLoginAuth = 'http://localhost:8080/oauth/login/authenticated';
-  // private userLogin = "http://localhost:8080/login";
   private userLogined: any[] = [];
 
-  loginUser(data: any) {
-    return this.http.post<any>(this.userURL, data).pipe(
-      tap((receivedUser) => {
-        this.userLogined = JSON.parse(JSON.stringify(receivedUser));
-        this.setUserLog(this.userLogined);
-        console.warn(this.userLogined);
-        localStorage.setItem(
-          'token',
-          JSON.parse(JSON.stringify(this.getUserLog())).token
-        );
-      }),
-      catchError((error) =>
-        of([
-          new toast({
-            title: 'Thất bại!',
-            message: 'Vui lòng kiểm tra lại thông tin',
-            type: 'error',
-            duration: 1500,
-          }),
-        ])
-      )
-    );
+
+  loginUser(data: any): Observable<any> {
+
+    return this.http.post<any>(this.userURL, data)
+      .pipe(
+        tap((response) => {
+          this.userLogined = JSON.parse(JSON.stringify(response));
+          this.setUserLog(this.userLogined);
+          console.warn(this.userLogined);
+          localStorage.setItem(
+            'token',
+            JSON.parse(JSON.stringify(this.getUserLog())).token
+          );
+        }),
+        catchError((error: HttpErrorResponse) => {
+          console.log("error.status 2: " + error.status)
+          if (error.status === 200) {
+            // Handle successful response
+            return [];
+          } else if (error.status === 301) {
+            // Handle redirect
+            // You might want to navigate to the new location
+            return throwError(
+              new toast({
+                title: 'Thất bại!',
+                message: 'Vui lòng kiểm tra lại thông tin',
+                type: 'error',
+                duration: 1500,
+              })
+            );
+          } else if (error.status === 303) {
+            // Handle see other
+            // You might want to follow the redirect
+            return throwError(
+              new toast({
+                title: 'Thông báo!',
+                message: 'Tài khoản của bạn sẽ được mở sau 3 phút',
+                type: 'warning',
+                duration: 1500,
+              })
+            );
+          } else {
+            // Handle other errors
+            return throwError(
+              new toast({
+                title: 'Tài khoản của bạn đã bị khóa!',
+                message: 'Hãy liên hệ với Email: Davitickets@gmail.com để được mở khóa!',
+                type: 'warning',
+                duration: 1500,
+              })
+            );
+          }
+        })
+      );
   }
-
-  // log(data: any) {
-  //   // return this.http.post(this.userURL, data);
-  //   return this.http.post<any>(this.userLogin,data).pipe(
-  //         // tap(() => console.log("Lấy dữ liệu thành công")),
-  //         tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
-  //         catchError(error => of([
-  //           new toast({
-  //             title: 'Thất bại!',
-  //             message: 'Vui lòng kiểm tra lại thông tin',
-  //             type: 'error',
-  //             duration: 1500,
-  //           })
-  //         ]))
-  //       )
-  // }
-
-  // loginWithGoogle(data: any) {
-  //   // return this.http.post(this.userURL, data);
-  //   return this.http.post<any>(this.userLoginWithGG,data).pipe(
-  //         tap(() => console.log("Thành công")),
-  //         // tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
-  //         catchError(error => of([]))
-  //       )
-  // }
-
+  status: string;
   loginAuth(data: any) {
     //alert("dataparsms:"+data);
     var strData = { data: data };
@@ -87,24 +91,13 @@ export class LoginService {
           JSON.parse(JSON.stringify(this.getUserLog())).token
         );
       }),
-      // tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
       catchError((error) => of([]))
     );
   }
 
-  // loginWithGG(data: any) {
-  //   // return this.http.post(this.userURL, data);
-  //   return this.http.post<any>(this.userURLGG,data).pipe(
-  //         // tap(() => console.log("Lấy dữ liệu thành công")),
-  //         tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
-  //         catchError(error => of([]))
-  //       )
-  // }
 
   checkCodeMail(data: any) {
-    // return this.http.post(this.userURL, data);
     return this.http.post<any>(this.userCheckCodeMail, data).pipe(
-      // tap(() => console.log("Lấy dữ liệu thành công")),
       tap((receivedUser) =>
         console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)
       ),
@@ -112,13 +105,6 @@ export class LoginService {
     );
   }
 
-  // getAllUsers() : Observable<any>{
-  //   return this.http.get<any>(this.userURL).pipe(
-  //     // tap(() => console.log("Lấy dữ liệu thành công")),
-  //     tap(receivedUser => console.log(`receivedUser = ${JSON.stringify(receivedUser)}`)),
-  //     catchError(error => of([]))
-  //   )
-  // }
 
   constructor(
     private http: HttpClient,
@@ -126,7 +112,7 @@ export class LoginService {
     private router: Router,
     private route: ActivatedRoute,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   isLogin(): boolean {
     if (this.cookieService.get('isUserLoggedIn') == '') {

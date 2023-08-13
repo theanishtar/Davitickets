@@ -22,7 +22,7 @@ export class ListMovieService {
     loadDataBooking(data: any) {
 
         let headers = new HttpHeaders({
-            'Authorization': localStorage.getItem("token"),
+            'Authorization': "Bearer " + localStorage.getItem("token"),
             'Content-Type': 'application/json'
         });
         // return this.http.post(this.userURL, data);
@@ -39,7 +39,7 @@ export class ListMovieService {
     loadFormBooking(data: any) {
 
         let headers = new HttpHeaders({
-            'Authorization': localStorage.getItem("token"),
+            'Authorization': "Bearer " + localStorage.getItem("token"),
             'Content-Type': 'application/json'
         });
         return this.http.post<any[]>(this.urlMovieBooking, data, { headers }).pipe(
@@ -55,7 +55,7 @@ export class ListMovieService {
 
     loadFormPayment(data: any) {
         let headers = new HttpHeaders({
-            'Authorization': localStorage.getItem("token"),
+            'Authorization': "Bearer " + localStorage.getItem("token"),
             'Content-Type': 'application/json'
         });
         return this.http.post<any[]>(this.urlMoviePayment, data, { headers }).pipe(

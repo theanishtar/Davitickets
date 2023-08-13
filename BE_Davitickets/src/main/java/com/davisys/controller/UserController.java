@@ -3,6 +3,7 @@ package com.davisys.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,19 +38,35 @@ public class UserController {
 
 	@GetMapping("/tablesusers")
 	public String tablesusers(Model m) {
-//		System.out.println("Click /tablesusers");
 		loadDataUser(m);
-		Users u = sessionService.get("user");
-		if(u != null) {
-			System.out.println(u.getProfile_picture());
-		}
 		m.addAttribute("activeu", "active");
 		return "admin/tablesusers";
 	}
-	
 
 	public void loadDataUser(Model model) {
 		List<Users> listUser = userDao.findAll();
+		int i = 0;
+		for (Users user : listUser) {
+			if (user.getPhone() == null) {
+				user.setPhone("Null");
+			}
+			if(user.getProfile_picture() == null) {
+				user.setProfile_picture(daviUser);
+			}
+			if(user.getUserBirthday() == null) {
+				String pattern = "yyyy-MM-dd";
+				DateFormat dateFormat = new SimpleDateFormat(pattern);
+				try {
+					Date birthdayDate = dateFormat.parse("2000-1-1");
+					user.setUser_birtday(birthdayDate);
+				} catch (Exception e) {
+					alert = "updateFail";
+					e.printStackTrace();
+				}
+			}
+			listUser.set(i, user);
+			i++;
+		}
 		model.addAttribute("listUser", listUser);
 	}
 
@@ -135,6 +152,5 @@ public class UserController {
 		}
 
 	}
-
 
 }

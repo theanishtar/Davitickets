@@ -45,6 +45,7 @@ export class LoginComponent {
 	private loginAdmin = 'http://localhost:8080/login/admin';
 	registerEmail: string = '';
 	registerPassword: string = '';
+	status: string;
 
 	constructor(
 		private formbuilder: FormBuilder,
@@ -137,16 +138,19 @@ export class LoginComponent {
 			this.checkedRemember = false;
 		}
 	}
+	
 	loginWithEmailAndPassword() {
 		this.submitted = true;
 		// if (this.loginForm.valid) {
-		this.loginService.loginUser(this.loginForm.value).subscribe((res) => {
+		this.loginService.loginUser(this.loginForm.value).subscribe((response) => {
+			
 			function delay(ms: number) {
 				return new Promise(function (resolve) {
 					setTimeout(resolve, ms);
 				});
 			}
-			if (res == '') {
+			if (response == '') {
+				
 				new toast({
 					title: 'Thất bại!',
 					message: 'Email hoặc mật khẩu không đúng!',
@@ -156,11 +160,11 @@ export class LoginComponent {
 			} else {
 				if (
 					this.checkedRemember == true &&
-					res.roles[0].authority == 'ROLE_USER'
+					response.roles[0].authority == 'ROLE_USER'
 				) {
-					this.setCookie('sessionID', res.user.sesionId, 2);
+					this.setCookie('sessionID', response.user.sesionId, 2);
 				}
-				if (res.roles[0].authority == 'ROLE_ADMIN') {
+				if (response.roles[0].authority == 'ROLE_ADMIN') {
 					let userAdmin = {
 						email: this.loginForm.get('email').value,
 						password: this.loginForm.get('password').value,
@@ -173,14 +177,14 @@ export class LoginComponent {
 						userAdmin.password;
 					this.loginForm.reset();
 				} else {
-					this.cookieService.set('full_name', res.name);
+					this.cookieService.set('full_name', response.name);
 					this.cookieService.set(
 						'userEmail',
 						this.loginForm.get('email').value
 					);
 					this.cookieService.set(
 						'isUserLoggedIn',
-						JSON.stringify(res.sesionId)
+						JSON.stringify(response.sesionId)
 					);
 					delay(500).then((res) => {
 						this.loginForm.reset();

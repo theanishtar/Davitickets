@@ -21,6 +21,7 @@ import com.davisys.entity.Showtime;
 import com.davisys.entity.Users;
 import com.davisys.service.EmailService;
 import com.davisys.service.MailerServiceImpl;
+import com.davisys.service.QrCodeGeneratorService;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,18 +29,22 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class VNPAYController {
 	@Autowired
 	HttpServletRequest request;
+
 	@Autowired
 	private ShowtimeDAO showtimeDAO;
 	@Autowired
@@ -56,6 +61,8 @@ public class VNPAYController {
 	MailerServiceImpl mailer;
 	@Autowired
 	EmailService emailService;
+	@Autowired
+	private QrCodeGeneratorService qrCodeGeneratorService;
 
 	public int orderReturn(HttpServletRequest request) {
 		BookingPayment bookingPayment = MovieRescontroller.bookingPayment;
@@ -97,7 +104,7 @@ public class VNPAYController {
 						booking.setBooking_date(new Date());
 						String sym_bol = s.substring(0, 1);
 						int num = Integer.valueOf(s.substring(1, s.length()).trim());
-						Seat seat = seatDAO.findIdSeatandsymbol(sym_bol, num);
+						Seat seat = seatDAO.findIdSeatandsymbol(sym_bol, num, showtime.getRoom().getRoom_id());
 						booking.setSeat(seat);
 						booking.setBooking_id(null);
 						bookingDAO.save(booking);
@@ -108,13 +115,26 @@ public class VNPAYController {
 						if (seat.getVip() == true) {
 							total = showtime.getPrice() + 10000;
 						}
-//						payment.setTotal_amount(total);
 						payment.setTotal_amount(total);
 						paymentDAO.save(payment);
 						tickets++;
 					}
-					emailService.sendEmailWithImage(bookingPayment.getQrCode(), user, showtime,
-							bookingPayment.getSeat(),tickets,Integer.valueOf(bookingPayment.getMoney()));
+
+					SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+					Date date = new Date();
+					int hour = date.getHours();
+					int minute = date.getMinutes();
+					List<byte[]> qr = new ArrayList<>();
+					List<Booking> booking = bookingDAO.findBookingUser(user.getUserid(), showtime.getShowtime_id(),
+							sdf.format(date), hour, minute);
+					for (Booking bk : booking) {
+						String data = "{\"booking_id\": " + bk.getBooking_id() + "}";
+						qr.add(qrCodeGeneratorService.generateQrCodeImage(data, 200, 200));
+					}
+
+					String data = "{userid:" + user.getUserid() + "}";
+					emailService.sendEmailWithImage(qr, user, showtime, bookingPayment.getSeat(), tickets,
+							Integer.valueOf(bookingPayment.getMoney()));
 
 				} catch (Exception e) {
 					System.out.println("error 1: " + e);
@@ -130,20 +150,30 @@ public class VNPAYController {
 	}
 
 	@GetMapping("/vnpay-payment")
-	public String GetMapping(HttpServletRequest request, Model model) {
-		int paymentStatus = orderReturn(request);
+	public String GetMapping(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+			SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-YYYY");
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			Date date = new Date();
+			String time=sdf.format(date.getTime()+" "+ sdfDate.format(date));
+			int paymentStatus = orderReturn(request);
 
-		String orderInfo = request.getParameter("vnp_OrderInfo");
-		String paymentTime = request.getParameter("vnp_PayDate");
-		String transactionId = request.getParameter("vnp_TransactionNo");
-		String totalPrice = request.getParameter("vnp_Amount");
+			String orderInfo = request.getParameter("vnp_OrderInfo");
+			String paymentTime = request.getParameter("vnp_PayDate");
+			String transactionId = request.getParameter("vnp_TransactionNo");
+			String totalPrice = request.getParameter("vnp_Amount");
 
-		model.addAttribute("orderId", orderInfo);
-		model.addAttribute("totalPrice", totalPrice);
-		model.addAttribute("paymentTime", paymentTime);
-		model.addAttribute("transactionId", transactionId);
+			model.addAttribute("orderId", orderInfo);
+			model.addAttribute("totalPrice", totalPrice);
+			model.addAttribute("paymentTime", time);
+			model.addAttribute("transactionId", transactionId);
 
-		return paymentStatus == 1 ? "ordersuccess" : "orderfail";
+			return paymentStatus == 1 ? "ordersuccess" : "orderfail";
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 }
