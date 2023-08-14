@@ -57,7 +57,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 
 @RestController
-@CrossOrigin
+@CrossOrigin("*")
 public class MovieRescontroller {
 	@Autowired
 	private MovieDAO movieDAO;
@@ -147,10 +147,14 @@ public class MovieRescontroller {
 			String email = jwtTokenUtil.getEmailFromHeader(request);
 //			String email =jwtTokenUtil.getEmailFromHeaderText(dataBooking.getUserEmail());
 			Users user = userDAO.findEmailUser(email);
+			if(user == null) {
+				System.out.println("hi");
+				return null;
+			}
 			int userId = user.getUserid();
 			Movie movie = movieDAO.findIdMovie(dataBooking.getIdMovie());
 			Showtime showtime = showtimeDAO.findIdShowtime(dataBooking.getIdShowTime());
-			int seat = movieDAO.countSeat(showtime.getShowtime_id());
+			int seat = movieDAO.countSeat(showtime.getRoom().getRoom_id(),showtime.getShowtime_id());
 			detail.setUserid(userId);
 			detail.setMovie(movie);
 			detail.setShowtime(showtime);

@@ -157,7 +157,10 @@ public class Users implements UserDetails {
 	}
 	
 	public boolean isUser() {
-		return !Arrays.asList(this.getAuth()).contains("ADMIN");
+		return Arrays.asList(this.getAuth()).contains("USER");
 	}
 
+	public boolean isAdmin() {
+		return Arrays.asList(this.getAuth()).contains("ADMIN");
+	}
 }

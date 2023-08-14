@@ -58,13 +58,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		HttpSession sesion = request.getSession();
 		Users user = (Users) sesion.getAttribute(SessionAttribute.CURRENT_USER);
 		if (user != null) {
-			System.out.println("ADMIN -> " + user.getEmail());
-
 			Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 			Arrays.stream(user.getAuth()).forEach(role -> {
 				authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
 			});
-			authorities.forEach(authority -> System.out.println(authority.getAuthority()));
+			
 			UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 					user.getEmail(), null, authorities);
 			System.out.println("SAVING INFOR ADMIN...");
@@ -75,7 +73,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 			System.out.println("SAVE INFOR ADMIN SUCCESS!!");
 
 			chain.doFilter(request, response);
-
 			return;
 		}
 
@@ -88,55 +85,54 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 			// String authToken = header;
 			System.out.println("authToken: " + authToken);
 
-			try {
-				Algorithm algorithm = Algorithm.HMAC256(secret.getBytes());
-				JWTVerifier jwtVerifier = JWT.require(algorithm).build();
+			try {Algorithm algorithm = Algorithm.HMAC256(secret.getBytes());
+			JWTVerifier jwtVerifier = JWT.require(algorithm).build();
 
-				DecodedJWT decodedJWT = jwtVerifier.verify(authToken);
+			DecodedJWT decodedJWT = jwtVerifier.verify(authToken);
 
-				String email = decodedJWT.getSubject();
-				System.out.println("username: " + email);
-//                Users u = dao.findEmailUser(username);
+			String email = decodedJWT.getSubject();
+			System.out.println("username: " + email);
+//            Users u = dao.findEmailUser(username);
 
-				String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
-				if (email != null) {
-					Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-					Arrays.stream(roles).forEach(role -> {
-						authorities.add(new SimpleGrantedAuthority(role));
-					});
+			String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
+			if (email != null) {
+				Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+				Arrays.stream(roles).forEach(role -> {
+					authorities.add(new SimpleGrantedAuthority(role));
+				});
 
-					authorities.forEach(authority -> System.out.println(authority.getAuthority()));
+				authorities.forEach(authority -> System.out.println(authority.getAuthority()));
 
-					UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-							email, null, authorities);
+				UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+						email, null, authorities);
 
-					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-					// Đưa thông tin xác thực vào SecurityContextHolder
-					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+				// Đưa thông tin xác thực vào SecurityContextHolder
+				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-					chain.doFilter(request, response);
-					return;
-				}
-			} catch (Exception e) {
-				System.out.println("Unable to get JWT Token, possibly expired");
-				System.out.println(e);
-				response.sendError(HttpServletResponse.SC_FORBIDDEN);
+				chain.doFilter(request, response);
 				return;
 			}
+		} catch (Exception e) {
+			System.out.println("Unable to get JWT Token, possibly expired");
+			System.out.println(e);
+			response.sendError(HttpServletResponse.SC_FORBIDDEN);
+			return;
 		}
-
-		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(null, null,
-				null);
-
-		authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-		// Đưa thông tin xác thực vào SecurityContextHolder
-		SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-		// response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-		chain.doFilter(request, response);
-		return;
-
 	}
+
+	UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(null, null,
+			null);
+
+	authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+	// Đưa thông tin xác thực vào SecurityContextHolder
+	SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+	// response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+	chain.doFilter(request, response);
+	return;
+
+}
 
 }

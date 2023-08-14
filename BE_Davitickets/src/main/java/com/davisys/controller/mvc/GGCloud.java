@@ -2,6 +2,7 @@ package com.davisys.controller.mvc;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
@@ -14,12 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.davisys.constant.SessionAttribute;
 import com.davisys.dao.RoleDAO;
 import com.davisys.dao.UserDAO;
 import com.davisys.encrypt.AES;
 import com.davisys.entity.Roles;
 import com.davisys.entity.StatusLogin;
 import com.davisys.entity.Users;
+import com.davisys.service.SessionService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,12 +47,14 @@ public class GGCloud {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	SessionService sessionService;
 
-	@PostMapping("login/oauth")
+	@PostMapping("oauth/loginGG")
 	public String login(Model m) {
 		try {
 			System.out.println("s: " + httpServletRequest.getParameter("credential"));
-			StatusLogin statusLogin = new StatusLogin();
 			String token = httpServletRequest.getParameter("credential");
 			String[] chunks = token.split("\\.");
 
@@ -75,7 +80,7 @@ public class GGCloud {
 
 			Users user = new Users();
 			String uname = usgc.get("email").asText();
-			user.setUser_name(uname.substring(0, uname.indexOf("@")));
+			user.setUser_name(uname);	//uname.substring(0, uname.indexOf("@"))
 			user.setFull_name(usgc.get("name").asText());
 			user.setGender("Nam");
 			user.setUser_password(passwordEncoder.encode(usgc.get("sub").asText()));
@@ -101,6 +106,11 @@ public class GGCloud {
 				userDAO.save(user);
 			} else {
 				System.out.println("CO trong DB");
+				if(checkUser.isAdmin()) {
+					System.out.println(Arrays.asList(checkUser.getAuth()));
+					sessionService.set(SessionAttribute.CURRENT_USER, checkUser);
+					return "redirect:/admin";
+				}
 			}
 
 			String emailEnc = aes.EncryptAESfinal(user.getEmail());

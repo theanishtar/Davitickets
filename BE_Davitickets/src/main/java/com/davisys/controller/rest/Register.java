@@ -47,7 +47,7 @@ public class Register {
 	@Autowired
 	MailerServiceImpl mailer;
 
-	@PostMapping("/user/register")
+	@PostMapping("/oauth/register")
 	public ResponseEntity<StatusLogin> register(HttpServletRequest request, @RequestBody Account account) {
 		HttpSession session = request.getSession();
 		try {
@@ -87,7 +87,7 @@ public class Register {
 		}
 	}
 
-	@PostMapping("/user/checkCodeMail")
+	@PostMapping("/oauth/checkCodeMail")
 	public ResponseEntity<StatusLogin> checkMail(HttpServletRequest request, @RequestBody String maxn) {
 		StatusLogin login = new StatusLogin();
 		if (checkCount == 3) {
@@ -118,20 +118,20 @@ public class Register {
 
 	}
 
-	@GetMapping("/user/register_login")
-	public ResponseEntity<StatusLogin> login(HttpSession session) {
-		try {
-			StatusLogin statusLogin = new StatusLogin();
-			session.setAttribute("isUserLoggedIn", user);
-			statusLogin.setSesionId(session.getId());
-			statusLogin.setRole(false);
-			statusLogin.setUser(user);
-			return ResponseEntity.status(201).body(statusLogin);
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
+//	@GetMapping("/user/register_login")
+//	public ResponseEntity<StatusLogin> login(HttpSession session) {
+//		try {
+//			StatusLogin statusLogin = new StatusLogin();
+//			session.setAttribute("isUserLoggedIn", user);
+//			statusLogin.setSesionId(session.getId());
+//			statusLogin.setRole(false);
+//			statusLogin.setUser(user);
+//			return ResponseEntity.status(201).body(statusLogin);
+//		} catch (Exception e) {
+//			throw e;
+//		}
+//
+//	}
 
 	public static void random() {
 		for (int i = 0; i < 6; i++) {

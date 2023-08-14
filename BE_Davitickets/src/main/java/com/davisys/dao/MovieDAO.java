@@ -24,8 +24,8 @@ public interface MovieDAO extends JpaRepository<Movie, Integer>{
 	@Query(value = "SELECT * FROM Movie WHERE movie.movie_id NOT IN (SELECT showtime.movie_id FROM showtime)", nativeQuery = true)
 	public List<Movie> getMovieNotUse();
 	
-	@Query(value = "Select count(seat.seat_id) from seat where seat.seat_id \r\n"
+	@Query(value = "Select count(seat.seat_id) from seat where seat.room_id=:room_id AND seat.seat_id \r\n"
 			+ "not in (select booking.seat_id from booking where booking.showtime_id =:id)",nativeQuery = true)
-	public int countSeat(int id);
+	public int countSeat(int room_id,int id);
 	
 }

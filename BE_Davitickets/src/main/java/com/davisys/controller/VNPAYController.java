@@ -157,7 +157,7 @@ public class VNPAYController {
 			SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MM-YYYY");
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 			Date date = new Date();
-			String time=sdf.format(date.getTime()+" "+ sdfDate.format(date));
+			String time=sdf.format(date.getTime())+" "+ sdfDate.format(date);
 			int paymentStatus = orderReturn(request);
 
 			String orderInfo = request.getParameter("vnp_OrderInfo");

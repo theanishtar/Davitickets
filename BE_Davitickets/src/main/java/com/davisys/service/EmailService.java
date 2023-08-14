@@ -128,7 +128,7 @@ public class EmailService {
 				+ "                        DaviTickets xác nhận bạn đã đặt vé xem phim <b>"
 				+ showtime.getMovie().getTitle_movie() + "</b> thành công lúc\r\n" + "\r\n"
 				+ "                    </p>\r\n" + "                    <p class=\"p2\">\r\n"
-				+ "                        <span><b>13:56:40</b></span> <span><b>" + sdfDate.format(date) + "</b></span>\r\n"
+				+ "                        <span><b>"+sdf.format(date.getTime())+"</b></span> <span><b>" + sdfDate.format(date) + "</b></span>\r\n"
 				+ "                    </p>\r\n" + "                </td>\r\n" + "            </tr>\r\n"
 				+ "        </thead>\r\n" + "        <tbody class=\"info-ticket\">\r\n"
 				+ "            <tr class=\"tr1\">\r\n" + "                <td class=\"td2\" colspan=\"3\">\r\n"

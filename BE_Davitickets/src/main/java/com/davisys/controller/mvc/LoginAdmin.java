@@ -54,7 +54,6 @@ public class LoginAdmin {
 			if (isAdmin) {
 				System.out.println("IS ADMIN -> SET SESSION");
 				sessionService.set(SessionAttribute.CURRENT_USER, user);
-
 			} else {
 				System.out.println("IS USER -> DONT SET SESSION");
 			}

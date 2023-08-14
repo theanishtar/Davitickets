@@ -89,7 +89,9 @@ public class Login {
 	}
 
 	public int doLogin(String email, HttpServletRequest req, AuthenticationRequest authReq) {
-		Users user = usersReponsitory.findByEmail(authReq.getEmail()).get();
+		System.out.println(authReq.getEmail());
+		Users user = dao.findEmailUser(authReq.getEmail());
+		System.out.println(user.getEmail());
 		if (user != null && passwordEncoder.matches(authReq.getPassword(), user.getPassword())) {
 			// Login hợp lệ
 			if (!user.isAccount_status()) {

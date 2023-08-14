@@ -71,7 +71,6 @@ public class AuthenticationService {
 	}
 
 	public AuthenticationResponse authenticationResponse(AuthenticationRequest authenticationRequest) {
-
 		try {
 			Users user = usersReponsitory.findByEmail(authenticationRequest.getEmail()).orElseThrow();
 			if(!user.isAccount_status()) return null;

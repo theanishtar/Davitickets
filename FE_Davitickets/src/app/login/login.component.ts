@@ -123,8 +123,8 @@ export class LoginComponent {
 
 	createFormLogin() {
 		this.loginForm = this.formbuilder.group({
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', Validators.required],
+			email: [''],
+			password: [''],
 		});
 	}
 
@@ -138,19 +138,19 @@ export class LoginComponent {
 			this.checkedRemember = false;
 		}
 	}
-	
+
 	loginWithEmailAndPassword() {
 		this.submitted = true;
 		// if (this.loginForm.valid) {
 		this.loginService.loginUser(this.loginForm.value).subscribe((response) => {
-			
+
 			function delay(ms: number) {
 				return new Promise(function (resolve) {
 					setTimeout(resolve, ms);
 				});
 			}
 			if (response == '') {
-				
+
 				new toast({
 					title: 'Thất bại!',
 					message: 'Email hoặc mật khẩu không đúng!',
@@ -260,7 +260,7 @@ export class LoginComponent {
 					} else {
 						new toast({
 							title: 'Thông báo!',
-							message: 'Gửi mã thành công!',
+							message: 'Vui lòng kiểm tra email!',
 							type: 'info',
 							duration: 3000,
 						});
@@ -412,7 +412,7 @@ export class LoginComponent {
 	}
 
 	loginGGClick() {
-		window.location.href = 'https://accounts.google.com/gsi/select?client_id=829042615252-9cgbgmdc55famceanr15b20dq3kns76m&ux_mode=redirect&login_uri=http%3A%2F%2Flocalhost%3A8080%2Flogin%2Foauth&ui_mode=card&as=ipjC4ZjfB31EuuVVmDBf6w&g_csrf_token=681bab585b152103&origin=http%3A%2F%2Flocalhost%3A4200';
+		window.location.href = 'https://accounts.google.com/gsi/select?client_id=829042615252-9cgbgmdc55famceanr15b20dq3kns76m&ux_mode=redirect&login_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth%2FloginGG&ui_mode=card&as=tpphk8oJS9SGuKAiUmVKtg&g_csrf_token=2a42f6fd54be8af1&origin=http%3A%2F%2Flocalhost%3A4200';
 	}
 
 }
