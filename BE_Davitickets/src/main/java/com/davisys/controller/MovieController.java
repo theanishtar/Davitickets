@@ -98,18 +98,6 @@ public class MovieController {
 		return "admin/formmovie";
 	}
 	
-	
-//	@PostMapping("/validation/validate")
-//	public String save(Model model, @Validated @ModelAttribute("movie") Movie form, Errors errors ) {
-//		if(errors.hasErrors()) {
-//			model.addAttribute("message", "Vui lòng sửa các lỗi sau: ");
-//			return "admin/formmovie";
-//		}
-//		return "admin/formmovie";
-//	}
-//	
-	
-	
 	@PostMapping("/createMovie")
 	public String createMovie(Model m, @RequestParam("file") MultipartFile file) {
 		try {

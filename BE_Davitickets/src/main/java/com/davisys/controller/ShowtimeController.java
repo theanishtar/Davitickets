@@ -2,6 +2,7 @@ package com.davisys.controller;
 
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class ShowtimeController {
 	}
 
 	@GetMapping("/showtime")
-	public String showtime(Model m) {
+	public String showtime(Model m) throws ParseException {
 		editORcreate = "create";
 		m.addAttribute("editORcreate", editORcreate);
 		List<Movie> listMovie = movieDAO.findAll();
@@ -146,7 +147,7 @@ public class ShowtimeController {
 	}
 
 	@PostMapping("/createShowtime")
-	public String createShowtime(Model m) {
+	public String createShowtime(Model m) throws Exception {
 		try {
 			alert = "createSuccess";
 			Showtime showtime = new Showtime();
@@ -178,9 +179,35 @@ public class ShowtimeController {
 			}
 			String price = request.getParameter("price");
 			showtime.setPrice(Integer.valueOf(price));
-
-			showtimeDAO.saveAndFlush(showtime);
-
+			
+			//get compare hour
+			String start_time = showdate + " " + request.getParameter("start_time");
+			Date dateStart = timeFormat.parse(start_time);
+			int startTimeHour = dateStart.getHours();
+			int resultCompareHour = 0;
+			
+			//get compare date
+			Date dateAdd = dateFormat.parse(showdate);
+			//0 là chưa tồn tại ngày đó 
+			int resultCompareDay = 0;
+			
+			List<Showtime> showtimeInRoom = showtimeDAO.findIdShowtimeByIdRoom(Integer.valueOf(room_id));
+			for (Showtime showtimeChild : showtimeInRoom) {
+				int showtimeHour = showtimeChild.getStart_time().getHours();
+				if(startTimeHour == showtimeHour) {
+					resultCompareHour = 1;
+				}
+				int result = dateAdd.compareTo(showtimeChild.getShowdate());
+				if(result == 0) {
+					resultCompareDay = 1;
+				}
+			}
+			if(resultCompareHour == 1 && resultCompareDay == 1) {
+				alert = "createSameDayAndHour";
+				return "redirect:/admin/showtime";
+			}else {
+				showtimeDAO.saveAndFlush(showtime);
+			}
 			return "redirect:/admin/tablesshowtime";
 		} catch (Exception e) {
 			System.out.println("errr: " + e);

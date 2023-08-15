@@ -19,6 +19,9 @@ public interface ShowtimeDAO extends JpaRepository<Showtime, Integer>{
 	@Query(value = "SELECT * FROM Showtime WHERE showtime_id=:id", nativeQuery = true)
 	public Showtime findIdShowtime(int id);
 	
+	@Query(value = "SELECT * FROM Showtime WHERE showtime.room_id=:id", nativeQuery = true)
+	public List<Showtime> findIdShowtimeByIdRoom(int id);
+	
 	@Query(value = "SELECT TOP 3 DATEPART(HOUR, CONVERT(DATETIME, start_time, 8)), COUNT(*) AS TIMES FROM showtime GROUP BY showtime.start_time ORDER BY TIMES DESC	", nativeQuery = true)
 	public List<Object[]> getTop3GoldenHour();
 	
