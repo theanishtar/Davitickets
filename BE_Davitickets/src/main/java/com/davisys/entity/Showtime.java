@@ -73,6 +73,7 @@ public class Showtime implements Serializable{
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 		return sdf.format(this.end_time);
 	}
+	
 	public String getShow() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
 		return sdf.format(this.showdate);

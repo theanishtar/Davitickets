@@ -44,7 +44,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link" th:href="@{/admin}">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Thống kê</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -209,15 +209,14 @@
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<a th:href="@{/export}"
 							class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm"><i
-							class="fas fa-download fa-sm text-white-50"></i> Generate Export</a>
+							class="fas fa-download fa-sm text-white-50"></i> Xuất danh sách</a>
 						<form method="post" enctype="multipart/form-data">
 							<label> <input type="file" th:name="file"
 								class="inputFile" >
 							</label>
 							<button th:formaction="@{/admin/importExcel}" type="submit"
 								class="d-none d-sm-inline-block btn btn-sm btn-dark shadow-sm">
-								<i class="fas fa-download fa-sm text-white-50"></i> Generate
-								Import
+								<i class="fas fa-download fa-sm text-white-50"></i> Thêm danh sách
 							</button>
 						</form>
 					</div>

@@ -38,7 +38,7 @@ public class SeatController {
 	
 	@GetMapping("/tablesseat")
 	public String tablesseat(Model m) {
-		testLoadData(m);
+		loadDataSeat(m);
 		List<Room> listRoom = roomDAO.findAll();
 		m.addAttribute("listRoom", listRoom);
 		m.addAttribute("activeseat", "active");
@@ -47,7 +47,7 @@ public class SeatController {
 		return "admin/tablesseat";
 	}
 
-	public void testLoadData(Model model) {
+	public void loadDataSeat(Model model) {
 		List<Seat> listSeat = seatDao.getListSeatByRoom(idRoom);
 		model.addAttribute("listSeat", listSeat);
 	}

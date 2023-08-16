@@ -1,223 +1,195 @@
 <nav class="navbar navbar-expand-lg">
-  <div class="container">
-      <a class="navbar-brand" href="/home">
-          DaviTicket
-      </a>
+	<div class="container">
+		<a class="navbar-brand" href="/home">
+			DaviTicket
+		</a>
 
-      <a href="/listMovieBooking" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
+		<a href="/listMovieBooking" class="btn custom-btn d-lg-none ms-auto me-4">Đặt vé</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+			aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
-              <li class="nav-item">
-                  <a class="nav-link" href="/home">Trang chủ</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/history">Lịch sử</a>
-              </li>
-              <li class="nav-item dropdown">
-                  <span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
-                  <div class="dropdown-content">
-                      <a class="nav-link" (click)="loadDataProfile()">Thông tin</a>
-                      <a class="nav-link" href="/changepass">Đổi mật khẩu</a>
-                      <a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
-                  </div>
-              </li>
-          </ul>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+				<li class="nav-item">
+					<a class="nav-link" href="/home">Trang chủ</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/history">Lịch sử</a>
+				</li>
+				<li class="nav-item dropdown">
+					<span class="nav-link">{{userDisplayName}} <i class="fa-solid fa-chevron-down"></i></span>
+					<div class="dropdown-content">
+						<a class="nav-link" (click)="loadDataProfile()">Thông tin</a>
+						<a class="nav-link" href="/changepass">Đổi mật khẩu</a>
+						<a class="nav-link" (click)="logout()" routerLink="/home">Đăng xuất</a>
+					</div>
+				</li>
+			</ul>
 
-          <a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a>
-      </div>
-  </div>
+			<a href="/listMovieBooking" class="btn custom-btn d-lg-block d-none">Đặt vé</a>
+		</div>
+	</div>
 </nav>
 
 <section class="section-booking">
-  <!-- <div class="section-overlay"></div> -->
+	<!-- <div class="section-overlay"></div> -->
 
-  <div class="movie-container" *ngFor="let list of listSeat; let i = index">
-    <label id="movie">{{ list.movie.title_movie }}</label>
-    <div class="info-movie-selected">
-      <!-- <p>Avengers: Endgame | </p> -->
-      <p>{{ list.showtime.room.room_name }}</p>
-      <p>Số ghế ({{list.countSeat}}/{{ list.seats.length }}) |</p>
-      <p>
-        {{ list.showtime.showdate }} {{ list.showtime.startTime }} ~
-        {{ list.showtime.showdate }} {{ list.showtime.endTime }}
-      </p>
-    </div>
-  </div>
+	<div class="movie-container" *ngFor="let list of listSeat; let i = index">
+		<label id="movie">{{ list.movie.title_movie }}</label>
+		<div class="info-movie-selected">
+			<!-- <p>Avengers: Endgame | </p> -->
+			<p>{{ list.showtime.room.room_name }}</p>
+			<p>Số ghế ({{list.countSeat}}/{{ list.seats.length }}) |</p>
+			<p>
+				{{ list.showtime.show }} {{ list.showtime.startTime }} ~
+				{{ list.showtime.show }} {{ list.showtime.endTime }}
+			</p>
+		</div>
+	</div>
 
-  <ul class="showcase">
-    <li>
-      <div class="seat"></div>
-      <small>Ghế thường</small>
-    </li>
+	<ul class="showcase">
+		<li>
+			<div class="seat"></div>
+			<small>Ghế thường</small>
+		</li>
 
-    <li>
-      <div class="seat vip"></div>
-      <small>Ghế VIP</small>
-    </li>
+		<li>
+			<div class="seat vip"></div>
+			<small>Ghế VIP</small>
+		</li>
 
-    <li>
-      <div class="seat your"></div>
-      <small>Ghế bạn đã đặt</small>
-    </li>
-  </ul>
+		<li>
+			<div class="seat your"></div>
+			<small>Ghế bạn đã đặt</small>
+		</li>
+	</ul>
 
-  <ul class="showcase">
-    <li>
-      <div class="seat notselected"></div>
-      <small>Không thể chọn</small>
-    </li>
+	<ul class="showcase">
+		<li>
+			<div class="seat notselected"></div>
+			<small>Không thể chọn</small>
+		</li>
 
-    <li>
-      <div class="seat selected"></div>
-      <small>Ghế bạn chọn</small>
-    </li>
+		<li>
+			<div class="seat selected"></div>
+			<small>Ghế bạn chọn</small>
+		</li>
 
-    <li>
-      <div class="seat occupied"></div>
-      <small>Đã đặt</small>
-    </li>
-  </ul>
+		<li>
+			<div class="seat occupied"></div>
+			<small>Đã đặt</small>
+		</li>
+	</ul>
 
-  <div class="container-booking">
-    <div class="row" class="screen"></div>
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'A'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+	<div class="container-booking">
+		<div class="row" class="screen"></div>
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'A'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
 
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'B'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'B'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
 
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'C'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'C'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
-    <!-- 'occupied':listSeat.bookings.seat.seat_num==seat.seat_num  list.bookings[1].seat.seat_num==seat.seat_num -->
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'D'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
+		<!-- 'occupied':listSeat.bookings.seat.seat_num==seat.seat_num  list.bookings[1].seat.seat_num==seat.seat_num -->
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'D'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
 
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'E'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'E'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
 
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'F'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'F'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
-    <div class="row-seat" *ngFor="let list of listSeat">
-      <span *ngFor="let seat of list.seats; let i = index">
-        <span *ngIf="seat.row_symbol === 'G'">
-          <div
-            [ngStyle]="getStyle(i)"
-            [ngClass]="{
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
+		<div class="row-seat" *ngFor="let list of listSeat">
+			<span *ngFor="let seat of list.seats; let i = index">
+				<span *ngIf="seat.row_symbol === 'G'">
+					<div [ngStyle]="getStyle(i)" [ngClass]="{
               vip: seat.vip == true,
               notselected: seat.available == false,
               occupied: isSeatOccupied(list.bookings, seat.seat_id),
               your: isSeatSelected(list.bookings, list.userid, seat.seat_id)
-            }"
-            class="seat"
-          >
-            {{ seat.row_symbol }}{{ seat.seat_num }}
-          </div>
-        </span>
-      </span>
-    </div>
-    <!-- <div class="row">
+            }" class="seat">
+						{{ seat.row_symbol }}{{ seat.seat_num }}
+					</div>
+				</span>
+			</span>
+		</div>
+		<!-- <div class="row">
         <div class="seat">B1</div>
         <div class="seat">B2</div>
         <div class="seat">B3</div>
@@ -300,39 +272,36 @@
           <div class="seat">G10</div>
           <div class="seat">G11</div>
       </div> -->
-  </div>
+	</div>
 
-  <div class="footer-booking">
-    <div class="btn-bookmark">
-      <a href="/listMovieBooking">
-        <button class="bookmarkBtnPrev">
-          <p class="text">Quay lại</p>
-          <span class="IconContainer">
-            <i class="fa-solid fa-arrow-left"></i>
-          </span>
-        </button>
-      </a>
-    </div>
-    <div>
-      <p class="text" style="display: none">Ghế: <span id="count"></span></p>
-      <p class="text seat-name">
-        Ghế: <span *ngFor="let content of divSeats">{{ content }}, </span>
-      </p>
-      <p class="text">Tổng: <span id="total">0</span> <span> đ</span></p>
-    </div>
+	<div class="footer-booking">
+		<div class="btn-bookmark">
+			<a href="/listMovieBooking">
+				<button class="bookmarkBtnPrev">
+					<p class="text">Quay lại</p>
+					<span class="IconContainer">
+						<i class="fa-solid fa-arrow-left"></i>
+					</span>
+				</button>
+			</a>
+		</div>
+		<div>
+			<p class="text" style="display: none">Ghế: <span id="count"></span></p>
+			<p class="text seat-name">
+				Ghế: <span *ngFor="let content of divSeats">{{ content }}, </span>
+			</p>
+			<p class="text">Tổng: <span id="total">0</span> <span> đ</span></p>
+		</div>
 
-    <div
-      class="btn-bookmark"
-      [ngClass]="{ 'disabled-div': checkBooking == false }"
-    >
-      <a>
-        <button class="bookmarkBtnNext" (click)="pay()">
-          <span class="IconContainer">
-            <i class="fa-solid fa-arrow-right"></i>
-          </span>
-          <p class="text">Tiếp tục</p>
-        </button>
-      </a>
-    </div>
-  </div>
+		<div class="btn-bookmark" [ngClass]="{ 'disabled-div': checkBooking == false }">
+			<a>
+				<button class="bookmarkBtnNext" (click)="pay()">
+					<span class="IconContainer">
+						<i class="fa-solid fa-arrow-right"></i>
+					</span>
+					<p class="text">Tiếp tục</p>
+				</button>
+			</a>
+		</div>
+	</div>
 </section>

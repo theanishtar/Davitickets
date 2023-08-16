@@ -97,7 +97,7 @@ public class UpdateProfileAdminController {
 			alert = "updateFail";
 			System.out.println(e);
 		}
-		return "redirect:/updateprofileadmin";
+		return "redirect:/admin/updateprofileadmin";
 	}
 	@RequestMapping("/huy")
 	public String huy() {
