@@ -4,7 +4,7 @@ Our project is a DaviTickets movie booking website!
 
 More: [https://caodang.fpt.edu.vn/tin-tuc-poly/can-tho/dat-ve-xem-phim-tai-nha-vo-cung-don-gian...](https://caodang.fpt.edu.vn/tin-tuc-poly/can-tho/dat-ve-xem-phim-tai-nha-vo-cung-don-gian-voi-website-davitickets-mot-san-pham-cua-nhom-sinh-vien-cntt.html)
 
-![](techsj6.jpg)
+![](techs-bg.png)
 
 The project is guided by Mr.[Quach Huu Nghia](https://github.com/nghiaquach/) and uses technologies such as: Java Spring Boot, Socket.io, Thymeleaf template engine, bootstrap 5, ...
 
