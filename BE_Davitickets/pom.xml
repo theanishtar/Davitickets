@@ -200,6 +200,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>davitickets</finalName>
 	</build>
 
 </project>

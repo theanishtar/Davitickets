@@ -98,20 +98,16 @@
 										<p class="mb-0">Mật khẩu</p>
 									</div>
 									<div class="col-sm-9">
-										<input type="text" class="text-muted mb-0"
+										<input type="password" class="text-muted mb-0"
 											th:field="*{user_password}" th:name="user_password"
-											>
+											readonly>
 									</div>
 								</div>
 								<hr>
 								<div class="btn-updateprofile">
-									<button th:formaction="@{/updateadmin}"
+									<button th:formaction="@{/admin/updateadmin}"
 										type="submit" class="btn btn-primary">
 										<i class="fas fa-fw fa-edit"></i> Cập nhật
-									</button>
-									<button th:formaction="@{/huy}"
-										type="submit" class="btn btn-success">
-										<i class="fas fa-fw fa-user-check"></i> Hủy
 									</button>
 								</div>
 							</div>
